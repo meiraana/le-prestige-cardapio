@@ -1,1 +1,14 @@
 @import "tailwindcss";
+
+@theme {
+  /* Fontes do projeto */
+  --font-serif: var(--font-playfair-display), serif;
+  --font-sans: var(--font-plus-jakarta-sans), sans-serif;
+
+  /* Cores padronizadas da marca */
+  --color-dourado: #C29B38;
+  --color-cafe: #3D2C24;
+  --color-verde: #324A38;
+  --color-branco: #FFFFFF;
+  --color-creme: #F7F5F0;
+}

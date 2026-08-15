@@ -10,6 +10,7 @@ export interface Pedido {
   itens: ItemPedido[];
   valorTotal: number;
   status: 'Recebido' | 'Em preparo' | 'Pronto' | 'Entregue';
+  observacoes?: string;
 }
 
 export const mockPedidosIniciais: Pedido[] = [
