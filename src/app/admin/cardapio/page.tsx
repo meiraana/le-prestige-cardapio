@@ -40,6 +40,58 @@ export default function GestaoCardapioPage() {
         setImagem('');
         setIsModalOpen(true);
     };
+    const handleOpenEditModal = (prato: MenuItem) => {
+        setEditingId(prato.id);
+        setNome(prato.name);
+        setDescricao(prato.description);
+        setPreco(prato.price.toFixed(2).replace('.', ','));
+        setCategoria(prato.category);
+        setDisponivel(prato.available);
+        setImagem(prato.image || '');
+        setIsModalOpen(true);
+    };
+    const handleSavePrato = (e: React.FormEvent) => {
+        e.preventDefault();
+
+        if (!nome.trim() || !preco.trim()) {
+            alert('Preencha ao menos o nome e o preço do prato.');
+            return;
+        }
+
+        const precoFormatado = parseFloat(preco.replace(',', '.')) || 0;
+
+        if (editingId !== null) {
+            setPratos((prev) =>
+                prev.map((p) =>
+                    p.id === editingId
+                        ? {
+                            ...p,
+                            name: nome,
+                            description: descricao,
+                            price: precoFormatado,
+                            category: categoria,
+                            available: disponivel,
+                            image: imagem || p.image,
+                        }
+                    : p
+                )
+            );
+        } else {
+            const novoPrato: MenuItem = {
+                id: pratos.length > 0 ? Math.max(...pratos.map((p) => p.id)) + 1 : 1,
+                name: nome,
+                description: descricao,
+                price: precoFormatado,
+                category: categoria,
+                available: disponivel,
+                image: imagem.trim() ||
+                'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500',
+            };
+            setPratos((prev) => [novoPrato, ...prev]);
+         }
+
+        setIsModalOpen(false);
+        };
 
     return (
         <div className="min-h-screen bg-[#F7F5F0] text-cafe font-sans flex flex-col justify-between">
@@ -164,6 +216,7 @@ export default function GestaoCardapioPage() {
                                         <div className="flex items-center gap-1">
                                             <button
                                                 type="button"
+                                                onClick={() => handleOpenEditModal(prato)}
                                                 title='Editar Prato'
                                                 className="p-1.5 text-cafe hover:text-verde hover:bg-creme rounded-lg transition-colors"
                                             >
@@ -204,7 +257,7 @@ export default function GestaoCardapioPage() {
                         </div>
 
                         {/* Formulário dos Campos */}
-                        <form onSubmit={(e) => { e.preventDefault(); setIsModalOpen(false); }} className="p-6 space-y-4">
+                        <form onSubmit={(handleSavePrato)} className="p-6 space-y-4">
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-xs font-bold text-cafe mb-1">
