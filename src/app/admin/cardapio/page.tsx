@@ -3,8 +3,15 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, Plus } from 'lucide-react';
+import { MenuItem, CATEGORIES, mockMenuItems } from '@/data/mockData'
 
 export default function GestãoCardapioPage() {
+    const [pratos, setPratos] = useState<MenuItem[]>(mockMenuItems);
+    const [categoriaAtiva, setCategoriaAtiva] = useState<string>('TODOS');
+    const pratoFiltrados = categoriaAtiva === 'TODOS'
+        ? pratos
+        : pratos.filter((p) => p.category.toUpperCase() === categoriaAtiva.toUpperCase());
+
     return (
         <div className="min-h-screen bg-[#F7F5F0] text-cafe font-sans flex flex-col justify-between">
             {/* Header */}
@@ -42,6 +49,33 @@ export default function GestãoCardapioPage() {
                 </div>
 
                 {/* Espaço para os filtros e os cards */}
+                { /* FILTROS DE CATEGORIA */}
+                <div className="font-serif flex items-center gap-2 overflow-x-auto justify-between mb-6 pb-4 py-4">
+                    <button 
+                        onClick={() => setCategoriaAtiva('TODOS')}
+                        className={`px-4 py-1.5 w-full rounded-full text-xs font-bold transition-all uppercase whitespace-nowrap ${
+                            categoriaAtiva === 'TODOS'
+                                ? 'bg-verde text-white'
+                                : 'bg-[#EAE8E1] text-cafe hover:bg-[#dedbd2]'
+                        }`}
+                    > 
+                        Todos
+                    </button>
+                    {CATEGORIES.map((cat) => (
+                        <button
+                            key={cat}
+                            onClick={() => setCategoriaAtiva(cat.toUpperCase())}
+                            className={`px-4 py-1.5 w-full rounded-full text-xs font-bold transition-all uppercase whitespace-nowrap ${
+                                categoriaAtiva === cat.toUpperCase()
+                                    ? 'bg-verde text-white'
+                                    : 'bg-[#EAE8E1] text-cafe hover:bg-[#dedbd2]'
+                            }`}
+                        >
+                            {cat}
+                        </button>
+                    ))}
+                </div>
+
             </main>
 
             {/* Footer */}
