@@ -99,9 +99,9 @@ export default function GestaoCardapioPage() {
     };
 
     return (
-        <div className="min-h-screen bg-[#F7F5F0] text-cafe font-sans flex flex-col justify-between">
+        <div className="min-h-screen bg-creme text-cafe font-sans flex flex-col justify-between">
             {/* Header */}
-            <header className="bg-verde text-[#F7F5F0] py-4 shadow-sm border-b border-verde">
+            <header className="bg-verde text-creme py-4 shadow-sm border-b border-verde">
                 <div className="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
                     <div className="flex items-center gap-3">
                         <h1 className="font-serif text-2xl sm:text-3xl font-bold tracking-wide text-dourado">
@@ -247,8 +247,12 @@ export default function GestaoCardapioPage() {
 
             {/* POP-UP / MODAL DE CADASTRO OU EDIÇÃO */}
             {isModalOpen && (
-                <div className="fixed inset-0 bg-black/50 z-50 items-center justify-center p-4">
-                    <div className="bg-white rounded-2xl max-w-xl w-full overflow-hidden shadow-2xl border border-verde">
+                <div 
+                    onClick={() => setIsModalOpen(false)}
+                    className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+                    <div 
+                        onClick={(e) => e.stopPropagation()}
+                        className="bg-white rounded-2xl max-w-xl w-full overflow-hidden shadow-2xl border border-verde">
                         <div className="bg-verde px-6 py-4 flex justify-between items-center">
                             <h3 className="font-serif text-xl font-bold text-dourado">
                                 {editingId !== null ? 'Editar Prato' : 'Cadastrar Novo Prato'}
@@ -372,7 +376,7 @@ export default function GestaoCardapioPage() {
             )}
 
             {/* Footer */}
-            <footer className="border-t border-verde py-4 px-4 text-center text-xs text-cafe bg-[#FFFFFF]">
+            <footer className="border-t border-verde py-4 px-4 text-center text-xs text-cafe bg-branco">
                 Le Prestige Café e Bistrô &mdash; Painel Interno de Gestão | Desenvolvido por{' '}
                 <strong className="text-cafe font-bold">byron.solutions</strong>
             </footer>
