@@ -2,12 +2,13 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Plus, Edit2, Trash2 } from 'lucide-react';
+import { ArrowLeft, Plus, Edit2, Trash2, X } from 'lucide-react';
 import { MenuItem, CATEGORIES, mockMenuItems } from '@/data/mockData'
 import Image from 'next/image';
 import { isPageStatic } from 'next/dist/build/utils';
+import { SegmentPrefixRSCPathnameNormalizer } from 'next/dist/server/normalizers/request/segment-prefix-rsc';
 
-export default function GestãoCardapioPage() {
+export default function GestaoCardapioPage() {
     const [pratos, setPratos] = useState<MenuItem[]>(mockMenuItems);
     const [categoriaAtiva, setCategoriaAtiva] = useState<string>('TODOS');
     const pratosFiltrados = categoriaAtiva === 'TODOS'
@@ -20,18 +21,38 @@ export default function GestãoCardapioPage() {
         );
     };
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [editingId, setEditingId] = useState<number | null>(null);
+    const [nome, setNome] = useState('');
+    const [descricao, setDescricao] = useState('');
+    const [preco, setPreco] = useState('');
+    const [categoria, setCategoria] = useState<MenuItem['category']>("Entradas");
+    const [disponivel, setDisponivel] = useState(true);
+    const [imagem, setImagem] = useState('');
+
+    const handleOpenCreateModal = () => {
+        setEditingId(null);
+        setNome('');
+        setDescricao('');
+        setPreco('');
+        setCategoria('Entradas');
+        setDisponivel(true);
+        setImagem('');
+        setIsModalOpen(true);
+    };
+
     return (
         <div className="min-h-screen bg-[#F7F5F0] text-cafe font-sans flex flex-col justify-between">
             {/* Header */}
             <header className="bg-verde text-[#F7F5F0] py-4 shadow-sm border-b border-verde">
                 <div className="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-                    <div className="flex itens-center gap-3">
-                        <h1 className="font-serif text-2xl sm:text-3xl font-bold trancking-wide text-dourado">
+                    <div className="flex items-center gap-3">
+                        <h1 className="font-serif text-2xl sm:text-3xl font-bold tracking-wide text-dourado">
                             LE PRESTIGE
                         </h1>
                     </div>
 
-                    <Link href="/admin" className="font-sans w=full sm:w-auto text-center flex items-center justify-center gap-2 border-2 border-creme hover:bg-white/10 text-creme px-8 py-2 rounded-lg text-sm font-medium transition-all">
+                    <Link href="/admin" className="font-sans w-full sm:w-auto text-center flex items-center justify-center gap-2 border-2 border-creme hover:bg-white/10 text-creme px-8 py-2 rounded-lg text-sm font-medium transition-all">
                         <ArrowLeft className="w-4 h-4"/>
                         <span>Retornar ao Painel</span>
                     </Link>
@@ -50,7 +71,11 @@ export default function GestãoCardapioPage() {
                         </p>
                     </div>
 
-                    <button type="button" className="bg-verde hover:bg-cafe text-white px-5 py-2.5 rounded-lg font-semibold text-sm flex items-center justify-center gap-2 transition-all shadow-sm">
+                    <button 
+                        type="button" 
+                        onClick={handleOpenCreateModal}
+                        className="bg-verde hover:bg-cafe text-white px-5 py-2.5 rounded-lg font-semibold text-sm flex items-center justify-center gap-2 transition-all shadow-sm"
+                    >
                         <Plus className="w-4 h-4"/>
                         <span>Cadastrar Novo Prato</span>
                     </button>
@@ -86,7 +111,7 @@ export default function GestãoCardapioPage() {
 
                 {/* GRID DE CARDS DOS PRATOS */}
                 {pratosFiltrados.length === 0 ? (
-                    <div className="bg-white rounded-2xl border border-verde p-12 text-center- text-cafe">
+                    <div className="bg-white rounded-2xl border border-verde p-12 text-center text-cafe">
                         Nenhum prato encontrado nesta categoria.
                     </div>
                 ) : (
@@ -160,6 +185,132 @@ export default function GestãoCardapioPage() {
                 )}
 
             </main>
+
+            {/* POP-UP / MODAL DE CADASTRO OU EDIÇÃO */}
+            {isModalOpen && (
+                <div className="fixed inset-0 bg-black/50 z-50 items-center justify-center p-4">
+                    <div className="bg-white rounded-2xl max-w-xl w-full overflow-hidden shadow-2xl border border-verde">
+                        <div className="bg-verde px-6 py-4 flex justify-between items-center">
+                            <h3 className="font-serif text-xl font-bold text-dourado">
+                                {editingId !== null ? 'Editar Prato' : 'Cadastrar Novo Prato'}
+                            </h3>
+                            <button
+                                type="button"
+                                onClick={() => setIsModalOpen(false)}
+                                className="text-creme/80 hover:text-white"
+                            >
+                                <X className='w-5 h-5'/>
+                            </button>
+                        </div>
+
+                        {/* Formulário dos Campos */}
+                        <form onSubmit={(e) => { e.preventDefault(); setIsModalOpen(false); }} className="p-6 space-y-4">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-xs font-bold text-cafe mb-1">
+                                        Nome do Prato
+                                    </label>
+                                    <input
+                                        type='text'
+                                        value={nome}
+                                        onChange={(e) => setNome(e.target.value)}
+                                        placeholder="Ex: Risotto de Cogumelos Trufado"
+                                        className="w-full bg-[#EAE8E1]/60 border border-verde rounded-lg px-3 py-2 text-sm text-cafe focus:outline-none focus:border-verde"
+                                    ></input>
+                                </div>
+
+                                <div>
+                                    <label className="block text-xs font-bold text-cafe mb-1">
+                                        Categoria
+                                    </label>
+                                    <select
+                                        value={categoria}
+                                        onChange={(e) => setCategoria(e.target.value as MenuItem['category'])}
+                                        className='w-full bg-[#EAE8E1]/60 border border-verde rounded-lg px-3 py-2 text-sm text-cafe focus:outline-none focus:border-verde'
+                                    >
+                                        {CATEGORIES.map((cat) => (
+                                            <option key={cat} value={cat}>
+                                                {cat}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label className="block text-xs font-bold text-cafe mb-1">
+                                        Preço Unitário (R$)
+                                    </label>
+                                    <input
+                                        type='text'
+                                        value={preco}
+                                        onChange={(e) => setPreco(e.target.value)}
+                                        placeholder="Ex: 34,90"
+                                        className="w=full bg-[#EAE8E1]/60 border border-verde rounded-lg px-3 py-2 text-sm text-cafe focus:outline-nome focus:border-verde"
+                                    ></input>
+                                </div>
+                                
+                                <div>
+                                    <label className="block text-xs font-bold text-cafe mb-1">
+                                        Status no Cardápio
+                                    </label>
+                                    <select
+                                        value={disponivel ? 'true' : 'false'}
+                                        onChange={(e) => setDisponivel(e.target.value === 'true')}
+                                        className="w-full bg-[#EAE8E1]/60 border border-verde rounded-lg px-3 py-2 text-sm text-cafe focus:outline-none focus:border-verde"
+                                    >
+                                        <option value="true">Disponível</option>
+                                        <option value="false">Esgotado</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="block text-xs font-bold text-cafe mb-1">
+                                    URL da Imagem / Foto do Prato
+                                </label>
+                                <input
+                                    type="text"
+                                    value={imagem}
+                                    onChange={(e) => setImagem(e.target.value)}
+                                    placeholder="https://exemplo.com/imagem-do-prato.jpg"
+                                    className="w-full bg-[#EAE8E1]/60 border border-verde rounded-lg px-3 py-2 text-sm text-cafe focus:outline-none focus:border-verde"
+                                />
+                            </div>
+
+                            <div>
+                                <label className="block text-xs font-bold text-cafe mb-1">
+                                    Descrição e Ingredientes
+                                </label>
+                                <textarea
+                                    rows={3}
+                                    value={descricao}
+                                    onChange={(e) => setDescricao(e.target.value)}
+                                    placeholder="Descreva os ingredientes, acompanhamentos e modo de preparo..."
+                                    className="w-full bg-[#EAE8E1]/60 border border-verde rounded-lg px-3 py-2 text-sm text-cafe focus:outline-none focus:border-verde resize-none"
+                                />
+                            </div>
+
+                            <div className="flex justify-end gap-3 pt-2">
+                                <button
+                                    type="button"
+                                    onClick={() => setIsModalOpen(false)}
+                                    className="px-6 py-2 border border-verde rounded-lg text-sm font-semibold text-cafe hover:bg-[#EAE8E1] transition-colors"
+                                >
+                                    Cancelar
+                                </button>
+                                <button
+                                    type="submit"
+                                    className="px-6 py-2 bg-verde hover:bg-cafe text-white rounded-lg text-sm font-semibold transition-colors shadow-sm"
+                                >
+                                    Salvar Prato
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
 
             {/* Footer */}
             <footer className="border-t border-verde py-4 px-4 text-center text-xs text-cafe bg-[#FFFFFF]">
