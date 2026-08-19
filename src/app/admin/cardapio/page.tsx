@@ -91,7 +91,12 @@ export default function GestaoCardapioPage() {
          }
 
         setIsModalOpen(false);
-        };
+    };
+    const handleExcluirPrato = (id: number, nomePrato: string) => {
+        if (window.confirm(`Deseja remover "${nomePrato}" do cardápio?`)) {
+            setPratos((prev) => prev.filter((p) => p.id !== id));
+        }
+    };
 
     return (
         <div className="min-h-screen bg-[#F7F5F0] text-cafe font-sans flex flex-col justify-between">
@@ -224,6 +229,7 @@ export default function GestaoCardapioPage() {
                                             </button>
                                             <button
                                                 type="button"
+                                                onClick={() => handleExcluirPrato(prato.id, prato.name)}
                                                 title='Excluir Prato'
                                                 className="p-1.5 text-[#A84343] hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors"
                                             >
