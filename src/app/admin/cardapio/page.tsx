@@ -2,15 +2,23 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Plus } from 'lucide-react';
+import { ArrowLeft, Plus, Edit2, Trash2 } from 'lucide-react';
 import { MenuItem, CATEGORIES, mockMenuItems } from '@/data/mockData'
+import Image from 'next/image';
+import { isPageStatic } from 'next/dist/build/utils';
 
 export default function GestãoCardapioPage() {
     const [pratos, setPratos] = useState<MenuItem[]>(mockMenuItems);
     const [categoriaAtiva, setCategoriaAtiva] = useState<string>('TODOS');
-    const pratoFiltrados = categoriaAtiva === 'TODOS'
+    const pratosFiltrados = categoriaAtiva === 'TODOS'
         ? pratos
         : pratos.filter((p) => p.category.toUpperCase() === categoriaAtiva.toUpperCase());
+    
+    const handleToggleStatus = (id: number) => {
+        setPratos((prev) =>
+            prev.map((p) => (p.id === id ? { ...p, available: !p.available } : p))
+        );
+    };
 
     return (
         <div className="min-h-screen bg-[#F7F5F0] text-cafe font-sans flex flex-col justify-between">
@@ -75,6 +83,81 @@ export default function GestãoCardapioPage() {
                         </button>
                     ))}
                 </div>
+
+                {/* GRID DE CARDS DOS PRATOS */}
+                {pratosFiltrados.length === 0 ? (
+                    <div className="bg-white rounded-2xl border border-verde p-12 text-center- text-cafe">
+                        Nenhum prato encontrado nesta categoria.
+                    </div>
+                ) : (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                        {pratosFiltrados.map((prato) => (
+                            <div
+                                key={prato.id}
+                                className="bg-white rounded-2xl border border-verde overflow-hidden shadow-sm flex flex-col justify-between transition-all hover:shadow-md"
+                            >
+                                {/* Imagem e Badge de Status */}
+                                <div className="relative h-44 w-full bg-[#EAE8E1]">
+                                    {prato.image ? (
+                                        <Image src={prato.image} alt={prato.name} fill unoptimized className="object-cover"/>
+                                    ) : (
+                                        <div className="w-full h-full flex items-center justify-center text-xs text-cafe/40">
+                                            Sem Foto
+                                        </div>
+                                    )}
+
+                                    {/* Botão de Status Ágil */}
+                                    <button
+                                        type="button"
+                                        onClick={() => handleToggleStatus(prato.id)}
+                                        title="Clique para alterar disponibilidade"
+                                        className={`absolute top-3 right-3 px-3 py-1 rounded-full text-[11px] font-bold flex items-center gap-1.5 shadow-sm transition-all ${
+                                            prato.available
+                                                ? 'bg-[#85E697]/90 text-[#1B4D2E] hover:bg-[#85E697]'
+                                                : 'bg-[#F28B82]/90 text-[#5C1D1D] hover:bg-[#F28B82]'
+                                        }`}
+                                    >
+                                        <span className={`w-3 h-3 rounded-full ${
+                                            prato.available ? 'bg-emerald-600' : 'bg-red-600'
+                                        }`}
+                                    />
+                                    {prato.available ? 'Disponível' : 'Esgotado'}
+                                    </button>
+                                </div>
+
+                                {/* Informações e Ações */}
+                                <div className="p-4 flex flex-col justify-between grow">
+                                    <h3 className="font-bold text-cafe text-base mb-2 line-clamp-1">
+                                        {prato.name}
+                                    </h3>
+
+                                    <div className="flex items-center justify-between pt-2 border-t border-verde/10 mt-auto">
+                                        <span className="font-bold text-cafe text-sm">
+                                            R$ {prato.price.toFixed(2).replace('.', ',')}
+                                        </span>
+
+                                        <div className="flex items-center gap-1">
+                                            <button
+                                                type="button"
+                                                title='Editar Prato'
+                                                className="p-1.5 text-cafe hover:text-verde hover:bg-creme rounded-lg transition-colors"
+                                            >
+                                                <Edit2 className="w-4 h-4"/>
+                                            </button>
+                                            <button
+                                                type="button"
+                                                title='Excluir Prato'
+                                                className="p-1.5 text-[#A84343] hover:text-red-700 hover:bg-red-50 rounded-lg transition-colors"
+                                            >
+                                                <Trash2 className="w-4 h-4"/>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
 
             </main>
 
