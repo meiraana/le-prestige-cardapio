@@ -5,8 +5,6 @@ import Link from 'next/link';
 import { ArrowLeft, Plus, Edit2, Trash2, X } from 'lucide-react';
 import { MenuItem, CATEGORIES, mockMenuItems } from '@/data/mockData'
 import Image from 'next/image';
-import { isPageStatic } from 'next/dist/build/utils';
-import { SegmentPrefixRSCPathnameNormalizer } from 'next/dist/server/normalizers/request/segment-prefix-rsc';
 
 export default function GestaoCardapioPage() {
     const [pratos, setPratos] = useState<MenuItem[]>(mockMenuItems);
@@ -310,7 +308,7 @@ export default function GestaoCardapioPage() {
                                         value={preco}
                                         onChange={(e) => setPreco(e.target.value)}
                                         placeholder="Ex: 34,90"
-                                        className="w=full bg-[#EAE8E1]/60 border border-verde rounded-lg px-3 py-2 text-sm text-cafe focus:outline-nome focus:border-verde"
+                                        className="w-full bg-[#EAE8E1]/60 border border-verde rounded-lg px-3 py-2 text-sm text-cafe focus:outline-nome focus:border-verde"
                                     ></input>
                                 </div>
                                 
