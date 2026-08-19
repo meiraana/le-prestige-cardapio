@@ -126,7 +126,7 @@ export default function GestãoCardapioPage() {
                                 </div>
 
                                 {/* Informações e Ações */}
-                                <div className="p-4 flex flex-col justify-between grow">
+                                <div className="font-serif p-4 flex flex-col justify-between grow">
                                     <h3 className="font-bold text-cafe text-base mb-2 line-clamp-1">
                                         {prato.name}
                                     </h3>
