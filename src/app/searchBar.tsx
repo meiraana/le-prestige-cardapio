@@ -1,6 +1,7 @@
 // components/SearchBar.tsx
 'use client';
 import { MenuItem } from "@/data/mockData"; 
+import Link from 'next/link';
 
 interface SearchBarProps {
   busca: string;
@@ -28,18 +29,21 @@ export default function SearchBar({ busca, setBusca, placeholder = "Pesquisar...
           
           {resultados.length > 0 ? (
             resultados.map((item) => (
-              <div 
+              <Link 
+                href={`/prato/${item.id}`}
                 key={item.id} 
-                className="p-4 border-b border-gray-100 hover:bg-orange-50 cursor-pointer transition-colors flex justify-between items-center"
+                className="block p-4 border-b border-gray-100 hover:bg-orange-50 cursor-pointer transition-colors"
               >
-                <div>
-                  <div className="font-bold text-gray-800">{item.name}</div>
-                  <div className="text-xs text-orange-600 font-semibold">{item.category}</div>
+                <div className="flex justify-between items-center">
+                  <div>
+                    <div className="font-bold text-gray-800">{item.name}</div>
+                    <div className="text-xs text-orange-600 font-semibold">{item.category}</div>
+                  </div>
+                  <div className="text-sm text-gray-600">
+                    R$ {item.price.toFixed(2).replace('.', ',')}
+                  </div>
                 </div>
-                <div className="text-sm text-gray-600">
-                  R$ {item.price.toFixed(2).replace('.', ',')}
-                </div>
-              </div>
+              </Link>
             ))
           ) : (
             <div className="p-4 text-gray-500 text-center">
