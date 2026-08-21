@@ -113,13 +113,32 @@ export default function DetalhesDoPrato({
             </div>
           </div>
         </div>
-      </main>
+        <Link
+        href="/"
+        className="font-sans flex items-center gap-1 sm:gap-2 border-2 border-creme hover:bg-branco/10 text-creme px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-medium transition-all shrink-0"
+        >
+        <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+        <span className="hidden sm:inline">Retornar ao Cardápio</span>
+        <span className="sm:hidden text-xs">Cardápio</span>
+        </Link>
+        </div>
+        </header>   
+    <div className="min-h-screen bg-creme font-sans py-12 px-4 flex flex-col items-center">
+      
+      {/* Botão de Voltar Externo */}
+      <div className="max-w-3xl w-full mb-6">
+        <Link 
+          href="/"
+          className="inline-flex items-center gap-2 px-4 py-2 bg-gray-300/40 text-cafe rounded-full text-sm font-bold hover:bg-gray-300/60 transition-colors"
+        >
+          &larr; Voltar ao Cardápio
+        </Link>
+      </div>
 
-      {/* FOOTER */}
-      <footer className="border-t border-verde py-4 px-4 text-center text-xs text-cafe bg-creme font-sans">
-        Le Prestige Café e Bistrô &mdash; Cardápio | Desenvolvido por <strong className="text-cafe font-bold">byron.solutions</strong>
-      </footer>
+      {/* Renderiza o novo componente isolado, passando as informações do prato */}
+      <CardDetalhesPrato prato={prato} />
 
     </div>
+    </>
   );
 }
