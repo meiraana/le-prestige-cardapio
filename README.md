@@ -106,9 +106,9 @@ npm run dev
 5. **Acessar a aplicação**:
 Abra o seu navegador e acesse [http://localhost:3000](http://localhost:3000).
 
+---
 
-## Estrutura de Pastas
-
+##Estrutura das Pastas
 
 ├── public/                # Assets estáticos (Logos, Imagens, Ícones)
 │   └── image/
@@ -128,7 +128,6 @@ Abra o seu navegador e acesse [http://localhost:3000](http://localhost:3000).
 ├── tailwind.config.js     # Configurações de cores e tema do Tailwind
 ├── tsconfig.json          # Configuração do TypeScript
 └── package.json           # Dependências e scripts do projeto
----
 
 ## Equipe de Desenvolvimento (byron.solutions)
 
