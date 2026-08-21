@@ -1,5 +1,5 @@
 // components/CardDetalhesPrato.tsx
-import BotaoAdicionarCarrinho from '@/app/BotaoAddCart';
+import BotaoAdicionarCarrinho from '@/components/BotaoAddCart';
 // Opcional: import { MenuItem } from '@/data/mockData'; se quiser tipar direitinho
 
 export default function CardDetalhesPrato({ prato }: { prato: any }) {

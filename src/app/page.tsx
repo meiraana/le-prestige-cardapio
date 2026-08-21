@@ -174,12 +174,11 @@ export default function HomePage() {
         </section>
 
         {/* CARDÁPIO COMPLETO */}
-        <section className="full-menu max-w-5xl mx-auto px-4 pb-16">
+        <section id="cardapio" className="full-menu max-w-5xl mx-auto px-4 pb-16">
           <h2 className="font-serif text-2xl md:text-3xl font-bold text-[#3E2A1E] mb-4 border-b border-[#ECE7DE] pb-3">
             Cardápio Completo
           </h2>
 
-          {/* BARRA DE PESQUISA COM DROPDOWN FLUTUANTE */}
           <div className="flex flex-col sm:flex-row gap-3 mb-6">
             <div className="flex-1 relative z-50">
               <div className="flex items-center gap-2 bg-white border border-[#324A38]/30 rounded-xl px-4 py-2">
