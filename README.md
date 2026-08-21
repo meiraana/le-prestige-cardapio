@@ -1,6 +1,5 @@
 
-# ☕ Le Prestige Café e Bistrô — Cardápio Digital & Sistema de Gestão
-
+# ☕ Le Prestige Café e Bistrô — Cardápio Digital 
 ##  Sobre o Projeto
 
 Este projeto consiste no desenvolvimento de uma solução web de **Cardápio Digital e Painel de Gestão Operacional** para o estabelecimento **Le Prestige Café e Bistrô**, fundado em 2016 e especializado em culinária tradicional brasileira sob a premissa: *"Comida feita com carinho, sabor e ingredientes frescos."*
@@ -90,42 +89,27 @@ Certifique-se de ter instalado em sua máquina:
 ### Passo a Passo
 
 1. **Clonar o repositório**:
-   ```bash
+
    git clone [https://github.com/SEU_USUARIO/NOME_DO_REPOSITORIO.git](https://github.com/SEU_USUARIO/NOME_DO_REPOSITORIO.git)
    cd NOME_DO_REPOSITORIO
 
-```
+
 
 2. **Instalar as dependências**:
-```bash
+
 npm install
-# ou
-yarn install
-# ou
-pnpm install
-
-```
-
 
 3. **Executar o servidor de desenvolvimento**:
-```bash
+   
 npm run dev
-# ou
-yarn dev
-# ou
-pnpm dev
 
-```
-
-
-4. **Acessar a aplicação**:
+5. **Acessar a aplicação**:
 Abra o seu navegador e acesse [http://localhost:3000](http://localhost:3000).
 
----
 
 ## Estrutura de Pastas
 
-```text
+
 ├── public/                # Assets estáticos (Logos, Imagens, Ícones)
 │   └── image/
 │       ├── Logo.png
@@ -144,9 +128,6 @@ Abra o seu navegador e acesse [http://localhost:3000](http://localhost:3000).
 ├── tailwind.config.js     # Configurações de cores e tema do Tailwind
 ├── tsconfig.json          # Configuração do TypeScript
 └── package.json           # Dependências e scripts do projeto
-
-```
-
 ---
 
 ## Equipe de Desenvolvimento (byron.solutions)
@@ -164,10 +145,8 @@ Projeto desenvolvido com excelência pelos trainees e membros da **byron.solutio
 
 ## Licença & Disposições Finais
 
-Desenvolvido em **Agosto de 2026** para a **Projeto Final da Capacitação** e para o cliente **Le Prestige Café e Bistrô**.
+Desenvolvido em **Agosto de 2026** para a **Projeto Final da Capacitação Trainee** e para o cliente **Le Prestige Café e Bistrô**.
 
 © **byron.solutions** — Todos os direitos reservados.
-
-```
 
 ```
