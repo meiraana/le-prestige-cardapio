@@ -21,7 +21,7 @@ A interface foi projetada no **Figma** priorizando a usabilidade, acessibilidade
   - `Creme / Branco Off-white`: Fundo suave e acolhedor (`#F8F6F0`).
   - `Dourado / Amarelo`: Detalhes refinados e destaques de categoria.
 
- **[Acessar Protótipo Interativo no Figma](https://www.figma.com/design/SU9mdRqplFpkWqY9bzOzbu/Untitled?node-id=0-1&t=ludPmizkhJiuBMvL-1)**
+ **[Acessar Protótipo Interativo no Figma](https://www.figma.com/design/SU9mdRqplFpkWqY9bzOzbu/Untitled?node-id=0-1&t=Ud315Phr5XG4ogxu-0)**
 
 ---
 
@@ -90,8 +90,7 @@ Certifique-se de ter instalado em sua máquina:
 
 1. **Clonar o repositório**:
 
-   git clone [https://github.com/SEU_USUARIO/NOME_DO_REPOSITORIO.git](https://github.com/SEU_USUARIO/NOME_DO_REPOSITORIO.git)
-   cd NOME_DO_REPOSITORIO
+   git clone : 
 
 
 
@@ -107,27 +106,6 @@ npm run dev
 Abra o seu navegador e acesse [http://localhost:3000](http://localhost:3000).
 
 ---
-
-##Estrutura das Pastas
-
-├── public/                # Assets estáticos (Logos, Imagens, Ícones)
-│   └── image/
-│       ├── Logo.png
-│       └── Foto-Lp.svg
-├── src/
-│   ├── app/               # Rotas e Páginas do Next.js (App Router)
-│   │   ├── admin/         # Painéis Administrativos e Hub
-│   │   │   ├── cardapio/  # CRUD 1: Gestão de Pratos
-│   │   │   └── pedidos/   # CRUD 2: Gestão de Pedidos
-│   │   ├── carrinho/      # Página de Fechamento do Pedido
-│   │   ├── layout.tsx     # Layout Raiz (Navbar e Footer Globais)
-│   │   └── page.tsx       # Landing Page e Cardápio Público
-│   ├── components/        # Componentes Reutilizáveis (Header, Footer, Cards, Modais)
-│   ├── types/             # Definições de Tipos TypeScript (Prato, Pedido, Categoria)
-│   └── utils/             # Utilitários e Estado em Memória
-├── tailwind.config.js     # Configurações de cores e tema do Tailwind
-├── tsconfig.json          # Configuração do TypeScript
-└── package.json           # Dependências e scripts do projeto
 
 ## Equipe de Desenvolvimento (byron.solutions)
 
@@ -147,5 +125,3 @@ Projeto desenvolvido com excelência pelos trainees e membros da **byron.solutio
 Desenvolvido em **Agosto de 2026** para a **Projeto Final da Capacitação Trainee** e para o cliente **Le Prestige Café e Bistrô**.
 
 © **byron.solutions** — Todos os direitos reservados.
-
-```
