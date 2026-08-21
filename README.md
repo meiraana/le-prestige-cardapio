@@ -84,7 +84,7 @@ A interface foi projetada no **Figma** priorizando a usabilidade, acessibilidade
 ### Pré-requisitos
 Certifique-se de ter instalado em sua máquina:
 - [Node.js](https://nodejs.org/) (versão 18.x ou superior)
-- Gerenciador de pacotes `npm`, `yarn` ou `pnpm`
+- Gerenciador de pacote `npm`
 
 ### Passo a Passo
 
