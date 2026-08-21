@@ -1,6 +1,5 @@
 
 # ☕ Le Prestige Café e Bistrô — Cardápio Digital & Sistema de Gestão
----
 
 ##  Sobre o Projeto
 
