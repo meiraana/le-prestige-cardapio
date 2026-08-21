@@ -1,6 +1,9 @@
 import Link from "next/link";
 
 export default function Home() {
+
+  
+
   return (
     <main className="min-h-screen p-8 bg-[#FDFBF7] flex flex-col gap-6">
       <div>
