@@ -1,6 +1,4 @@
-Aqui está o conteúdo completo em um único bloco de código pronto para você copiar de uma só vez:
 
-```markdown
 # ☕ Le Prestige Café e Bistrô — Cardápio Digital & Sistema de Gestão
 ---
 
