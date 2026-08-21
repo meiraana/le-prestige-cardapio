@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { CartProvider } from "@/context/CartContext";
-import SearchBar from "./searchBar"
 
 const playfairDisplay = Playfair_Display({
   variable: "--font-playfair-display",
@@ -19,14 +18,13 @@ export const metadata: Metadata = {
   description: "Cardápio Digital e Gestão do Restaurante",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="pt-BR"
       className={`${playfairDisplay.variable} ${plusJakartaSans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        
         <CartProvider>
           {children}
         </CartProvider>
