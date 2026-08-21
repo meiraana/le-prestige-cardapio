@@ -1,6 +1,6 @@
 import Link from "next/link";
 import SearchBar from "./searchBar";
-import MenuGridPage from "./MenuGridPage";
+import MenuGridPage from "./MenuSection";
 
 export default function Home() {
 
@@ -48,6 +48,7 @@ export default function Home() {
         </Link>
       </div>
       <MenuGridPage/>
+      
     </main>
   );
 }
