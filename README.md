@@ -2,15 +2,6 @@ Aqui está o conteúdo completo em um único bloco de código pronto para você 
 
 ```markdown
 # ☕ Le Prestige Café e Bistrô — Cardápio Digital & Sistema de Gestão
-
-<p align="center">
-  <img src="https://img.shields.io/badge/Next.js-13%2B-black?style=for-the-badge&logo=next.js" alt="Next.js" />
-  <img src="https://img.shields.io/badge/React-18-blue?style=for-the-badge&logo=react" alt="React" />
-  <img src="https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript" alt="TypeScript" />
-  <img src="https://img.shields.io/badge/Tailwind_CSS-3.0-38B2AC?style=for-the-badge&logo=tailwind-css" alt="Tailwind CSS" />
-  <img src="https://img.shields.io/badge/byron.solutions-Empresa_Júnior-gold?style=for-the-badge" alt="byron.solutions" />
-</p>
-
 ---
 
 ##  Sobre o Projeto
