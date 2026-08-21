@@ -1,4 +1,6 @@
 import Link from "next/link";
+import SearchBar from "./searchBar";
+import MenuGridPage from "./MenuGridPage";
 
 export default function Home() {
 
@@ -13,6 +15,7 @@ export default function Home() {
         <p className="text-gray-600 mt-1">
           Atalhos de navegação para desenvolvimento e testes:
         </p>
+        <SearchBar/>
       </div>
 
       <div className="flex flex-wrap gap-3">
@@ -44,6 +47,7 @@ export default function Home() {
           Gestão do Cardápio (/admin/cardapio)
         </Link>
       </div>
+      <MenuGridPage/>
     </main>
   );
 }
