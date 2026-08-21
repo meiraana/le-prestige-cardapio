@@ -1,14 +1,21 @@
-import { mockMenuItems } from "@/data/mockData"; 
-import Link from "next/link";
-import { notFound } from "next/navigation";
-import { ArrowLeft } from 'lucide-react';
+'use client';
 
-export default async function DetalhesDoPrato({ 
+import { use } from 'react';
+import Link from 'next/link';
+import { useRouter, notFound } from 'next/navigation';
+import { ArrowLeft } from 'lucide-react';
+import { mockMenuItems } from "@/data/mockData";
+import { useCart } from '@/context/CartContext';
+
+export default function DetalhesDoPrato({ 
   params 
 }: { 
-  params: Promise<{ id: string }> 
+  params: Promise<{ id: string }> | { id: string } 
 }) {
-  const parametrosResolvidos = await params;
+  const router = useRouter();
+  const { adicionarAoCarrinho } = useCart();
+  
+  const parametrosResolvidos = params instanceof Promise ? use(params) : params;
   const pratoId = parametrosResolvidos.id;
 
   const prato = mockMenuItems.find((item) => item.id === Number(pratoId));
@@ -17,11 +24,17 @@ export default async function DetalhesDoPrato({
     return notFound();
   }
 
+  const handleAdicionarAoCarrinho = () => {
+  adicionarAoCarrinho({
+    ...prato,
+    id: String(prato.id),
+  });
+  router.push('/carrinho');
+};
+
   return (
-    // Wrapper principal
     <div className="min-h-screen bg-creme text-cafe font-sans flex flex-col justify-between">
       
-      {/* HEADER DA PÁGINA (Seguindo o estilo do Admin) */}
       <header className="bg-verde text-creme py-4 shadow-sm border-b border-verde">
         <div className="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
           <div className="flex items-center gap-3">
@@ -35,9 +48,18 @@ export default async function DetalhesDoPrato({
         </div>
       </header>
 
-      {/* CONTEÚDO PRINCIPAL (O CARD DO PRATO) */}
-      <main className="max-w-3xl mx-auto px-4 py-12 w-full flex-grow flex items-center justify-center">
+      <main className="max-w-3xl mx-auto px-4 py-8 w-full flex-grow flex flex-col justify-center">
         
+        <div className="mb-4 self-start">
+          <Link 
+            href="/" 
+            className="inline-flex items-center gap-2 px-4 py-2 bg-cafe/10 hover:bg-cafe/20 text-cafe font-medium text-xs rounded-full transition-all"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            Voltar ao Cardápio
+          </Link>
+        </div>
+
         <div className="w-full bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-verde">
           
           {/* IMAGEM DO PRATO */}
@@ -58,7 +80,7 @@ export default async function DetalhesDoPrato({
                 <span className="inline-block bg-cafe/10 text-cafe text-[11px] uppercase tracking-wider font-bold px-3 py-1 rounded-full mb-3">
                   {prato.category}
                 </span>
-                <h2 className="font-serif text-3xl md:text-4xl font-bold text-verde">
+                <h2 className="font-serif text-3xl md:text-4xl font-bold text-cafe">
                   {prato.name}
                 </h2>
               </div>
@@ -69,26 +91,25 @@ export default async function DetalhesDoPrato({
               </span>
             </div>
 
-            <p className="text-cafe leading-relaxed font-medium text-base mb-8">
+            <p className="text-verde leading-relaxed font-medium text-base mb-8">
               {prato.description}
             </p>
 
-            {/* AVISO DE ESGOTADO (Usando as cores da marca em vez de vermelho) */}
             {!prato.available && (
               <div className="bg-[#4A3728]/15 border border-cafe text-cafe p-4 rounded-xl font-bold text-center mb-6">
                 ⚠️ Este prato está esgotado no momento.
               </div>
             )}
 
-            {/* BOTÃO DE VOLTAR */}
             <div className="border-t border-verde/30 pt-6">
-              <Link 
-                href="/" 
-                className="flex items-center justify-center gap-2 w-full px-6 py-4 bg-verde text-creme font-semibold rounded-xl hover:bg-cafe transition-colors border border-transparent hover:border-verde"
+              <button 
+                type="button"
+                onClick={handleAdicionarAoCarrinho}
+                disabled={!prato.available}
+                className="flex items-center justify-center gap-2 w-full px-6 py-4 bg-verde text-creme font-semibold rounded-xl hover:bg-cafe transition-colors border border-transparent disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               >
-                <ArrowLeft className="w-5 h-5" />
-                Voltar para o Menu Principal
-              </Link>
+                + Adicionar ao Pedido
+              </button>
             </div>
           </div>
         </div>

@@ -45,7 +45,6 @@ export default function CarrinhoPage() {
 
     adicionarPedido(novoPedido);
 
-    console.log('Pedido enviado:', novoPedido);
     alert('Pedido enviado para a cozinha com sucesso!');
     
     limparCarrinho();
@@ -55,7 +54,7 @@ export default function CarrinhoPage() {
   return (
     <div className="min-h-screen bg-creme text-cafe font-sans flex flex-col justify-between overflow-x-hidden">
       
-      {/*HEADER*/}
+      {/* HEADER */}
       <header className="bg-cafe text-creme py-3 px-3 sm:px-8 shadow-sm relative z-10">
         <div className="max-w-6xl mx-auto px-3 sm:px-8 flex items-center justify-between gap-2">
           
@@ -113,7 +112,7 @@ export default function CarrinhoPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-start">
           
-          {/*Lista com os pratos que foram (serão) adiconados no carrinho */}
+          {/* Lista com os pratos */}
           <div className="lg:col-span-7 space-y-3 sm:space-y-4">
             {carrinho.length === 0 ? (
               <div className="bg-branco border border-verde rounded-2xl p-6 sm:p-10 text-center">
@@ -136,7 +135,6 @@ export default function CarrinhoPage() {
                   key={item.id} 
                   className="bg-branco border border-verde rounded-2xl p-3 sm:p-4 shadow-sm flex items-center gap-2.5 sm:gap-4"
                 >
-                  {/* Imagem do Item */}
                   <div className="relative w-16 h-16 sm:w-24 sm:h-20 rounded-xl overflow-hidden shrink-0 bg-stone-200">
                     <Image 
                       src={item.image || '/placeholder-food.jpg'} 
@@ -146,7 +144,6 @@ export default function CarrinhoPage() {
                     />
                   </div>
 
-                  {/* Informações do Prato */}
                   <div className="flex-grow min-w-0 pr-1 sm:pr-2">
                     <h4 className="font-serif text-xs sm:text-base font-bold text-cafe truncate">
                       {item.name}
@@ -159,7 +156,6 @@ export default function CarrinhoPage() {
                     </span>
                   </div>
 
-                  {/* Controles da Direita */}
                   <div className="flex flex-col items-end justify-between self-stretch shrink-0 py-0.5">
                     <button 
                       onClick={() => excluirDoCarrinho(item.id)}
@@ -245,7 +241,7 @@ export default function CarrinhoPage() {
                   />
                 </div>
 
-                <div className=" border-t border-cafe/20 pt-2 space-y-2 text-sm sm:text-lg text-verde">
+                <div className="border-t border-cafe/20 pt-2 space-y-2 text-sm sm:text-lg text-verde">
                   <div className="flex justify-between items-center">
                     <span>Subtotal ({totalItens} itens):</span>
                     <span className="font-sans">R$ {subtotal.toFixed(2).replace('.', ',')}</span>
@@ -278,7 +274,7 @@ export default function CarrinhoPage() {
         </div>
       </main>
 
-      {/* Footer */}
+      {/* FOOTER */}
       <footer className="bg-cafe text-creme/80 py-4 px-4 text-center text-[10px] sm:text-xs">
         Le Prestige Café e Bistrô &mdash; Painel Interno Cardápio | Desenvolvido por <strong className="text-dourado font-semibold">byron.solutions</strong>
       </footer>

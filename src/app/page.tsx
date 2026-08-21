@@ -105,7 +105,6 @@ export default function Home() {
                   </span>
                 </div>
 
-                {/* Dados do Prato */}
                 <div className="p-4 flex flex-col justify-between grow gap-4">
                   <h3 className="font-serif font-bold text-cafe text-base line-clamp-1">
                     {prato.name}
