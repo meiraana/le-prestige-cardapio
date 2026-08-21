@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { mockMenuItems, CATEGORIES } from '@/data/mockData';
-import CardListagem from '@/app/CardListagem';
+import CardListagem from '@/components/CardListagem';
 
 export default function MenuSection() {
   const [categoriaAtiva, setCategoriaAtiva] = useState('TODOS');

@@ -1,21 +1,15 @@
-'use client';
-
-import { use } from 'react';
-import Link from 'next/link';
-import { useRouter, notFound } from 'next/navigation';
-import { ArrowLeft } from 'lucide-react';
+// app/prato/[id]/page.tsx
 import { mockMenuItems } from "@/data/mockData";
-import { useCart } from '@/context/CartContext';
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import CardDetalhesPrato from "@/components/CardDetalhesPrato";
 
-export default function DetalhesDoPrato({ 
+export default async function DetalhesDoPrato({ 
   params 
 }: { 
-  params: Promise<{ id: string }> | { id: string } 
+  params: Promise<{ id: string }> 
 }) {
-  const router = useRouter();
-  const { adicionarAoCarrinho } = useCart();
-  
-  const parametrosResolvidos = params instanceof Promise ? use(params) : params;
+  const parametrosResolvidos = await params;
   const pratoId = parametrosResolvidos.id;
 
   const prato = mockMenuItems.find((item) => item.id === Number(pratoId));
@@ -24,121 +18,62 @@ export default function DetalhesDoPrato({
     return notFound();
   }
 
-  const handleAdicionarAoCarrinho = () => {
-  adicionarAoCarrinho({
-    ...prato,
-    id: String(prato.id),
-  });
-  router.push('/carrinho');
-};
-
   return (
-    <div className="min-h-screen bg-creme text-cafe font-sans flex flex-col justify-between">
+    <div className="min-h-screen bg-[#F5F1E8] text-[#2b2118] font-sans flex flex-col justify-between">
       
-      <header className="bg-verde text-creme py-4 shadow-sm border-b border-verde">
-        <div className="max-w-5xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+      {/* HEADER */}
+      <header className="bg-[#3E2A1E] text-white">
+        <div className="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-10 py-2">
+          
           <div className="flex items-center gap-3">
-            <h1 className="font-serif text-2xl sm:text-3xl font-bold tracking-wide text-dourado">
-              LE PRESTIGE
-            </h1>
-            <span className="bg-[#ECE7DE]/19 text-dourado text-[11px] uppercase tracking-wider font-semibold px-3 py-1 rounded-full">
-              Cardápio
-            </span>
+            <div className="w-20 h-14 shrink-0 flex items-center justify-center">
+              <img
+                src="/img/logo leprestige.png"
+                alt="Logo Le Prestige"
+                className="w-[140px] h-[80px] max-w-none object-contain"
+              />
+            </div>
+            <div>
+              <h1 className="font-serif text-xl md:text-2xl tracking-wide leading-tight">LE PRESTIGE</h1>
+              <p
+                className="text-[#C29B38]"
+                style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontWeight: 'normal',
+                  fontStyle: 'italic',
+                  fontSize: '16px',
+                  lineHeight: '100%',
+                }}
+              >
+                Café e Bistrô
+              </p>
+            </div>
           </div>
+
         </div>
       </header>
 
-      <main className="max-w-3xl mx-auto px-4 py-8 w-full flex-grow flex flex-col justify-center">
+      {/* CONTEÚDO PRINCIPAL */}
+      <main className="max-w-3xl w-full mx-auto py-8 px-4 flex-grow flex flex-col items-center">
         
-        <div className="mb-4 self-start">
+        <div className="w-full mb-6">
           <Link 
-            href="/" 
-            className="inline-flex items-center gap-2 px-4 py-2 bg-cafe/10 hover:bg-cafe/20 text-cafe font-medium text-xs rounded-full transition-all"
+            href="/#cardapio"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-[#3E2A1E]/10 hover:bg-[#3E2A1E]/20 text-[#3E2A1E] rounded-full text-sm font-bold transition-colors"
           >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            Voltar ao Cardápio
+            &larr; Voltar ao Cardápio
           </Link>
         </div>
 
-        <div className="w-full bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden border border-verde">
-          
-          {/* IMAGEM DO PRATO */}
-          {prato.image && (
-            <div className="w-full h-72 bg-cafe/10 border-b border-verde relative">
-              <img 
-                src={prato.image} 
-                alt={prato.name} 
-                className={`w-full h-full object-cover ${!prato.available ? 'grayscale opacity-60' : ''}`}
-              />
-            </div>
-          )}
+        <CardDetalhesPrato prato={prato} />
 
-          {/* DETALHES DO PRATO */}
-          <div className="p-8">
-            <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-6">
-              <div>
-                <span className="inline-block bg-cafe/10 text-cafe text-[11px] uppercase tracking-wider font-bold px-3 py-1 rounded-full mb-3">
-                  {prato.category}
-                </span>
-                <h2 className="font-serif text-3xl md:text-4xl font-bold text-cafe">
-                  {prato.name}
-                </h2>
-              </div>
-              
-              {/* TAG DE PREÇO */}
-              <span className="text-2xl font-bold text-verde bg-verde/10 border border-verde/20 px-5 py-2 rounded-xl whitespace-nowrap">
-                R$ {prato.price.toFixed(2).replace('.', ',')}
-              </span>
-            </div>
+      </main>
 
-            <p className="text-verde leading-relaxed font-medium text-base mb-8">
-              {prato.description}
-            </p>
-
-            {!prato.available && (
-              <div className="bg-[#4A3728]/15 border border-cafe text-cafe p-4 rounded-xl font-bold text-center mb-6">
-                ⚠️ Este prato está esgotado no momento.
-              </div>
-            )}
-
-            <div className="border-t border-verde/30 pt-6">
-              <button 
-                type="button"
-                onClick={handleAdicionarAoCarrinho}
-                disabled={!prato.available}
-                className="flex items-center justify-center gap-2 w-full px-6 py-4 bg-verde text-creme font-semibold rounded-xl hover:bg-cafe transition-colors border border-transparent disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
-              >
-                + Adicionar ao Pedido
-              </button>
-            </div>
-          </div>
-        </div>
-        <Link
-        href="/"
-        className="font-sans flex items-center gap-1 sm:gap-2 border-2 border-creme hover:bg-branco/10 text-creme px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-medium transition-all shrink-0"
-        >
-        <ArrowLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-        <span className="hidden sm:inline">Retornar ao Cardápio</span>
-        <span className="sm:hidden text-xs">Cardápio</span>
-        </Link>
-        </div>
-        </header>   
-    <div className="min-h-screen bg-creme font-sans py-12 px-4 flex flex-col items-center">
-      
-      {/* Botão de Voltar Externo */}
-      <div className="max-w-3xl w-full mb-6">
-        <Link 
-          href="/"
-          className="inline-flex items-center gap-2 px-4 py-2 bg-gray-300/40 text-cafe rounded-full text-sm font-bold hover:bg-gray-300/60 transition-colors"
-        >
-          &larr; Voltar ao Cardápio
-        </Link>
-      </div>
-
-      {/* Renderiza o novo componente isolado, passando as informações do prato */}
-      <CardDetalhesPrato prato={prato} />
+      {/* FOOTER */}
+      <footer className="bg-[#3E2A1E] text-[#F5F1E8]/80 py-4 px-4 text-center text-[10px] sm:text-xs">
+        Le Prestige Café e Bistrô &mdash; Painel Interno Cardápio | Desenvolvido por <strong className="text-[#C29B38] font-semibold">byron.solutions</strong>
+      </footer>
 
     </div>
-    </>
   );
 }
