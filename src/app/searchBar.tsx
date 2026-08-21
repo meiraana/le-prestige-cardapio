@@ -36,7 +36,6 @@ export default function SearchBar() {
                 className="block p-4 border-b border-gray-100 hover:bg-[#F7F5F0] cursor-pointer transition-colors"
               >
                 <div className="flex justify-between items-center">
-                  {/* Container de texto alinhado totalmente à esquerda */}
                   <div className="text-left flex flex-col items-start">
                     <div className="font-bold text-cafe">{item.name}</div>
                     <div className="text-xs text-dourado font-semibold mt-0.5">{item.category}</div>
