@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Le Prestige Café e Bistrô</title>
+  <link href="./src/output.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400&family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .font-display {
+      font-family: 'Playfair Display', serif;
+    }
+
+    button {
+      cursor: pointer;
+      transition: transform 160ms ease, filter 160ms ease, box-shadow 160ms ease;
+    }
+
+    button:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.14);
+    }
+
+    button:active {
+      transform: translateY(0) scale(0.97);
+    }
+
+    button:focus-visible {
+      outline: 2px solid #C29B38;
+      outline-offset: 3px;
+    }
+
+    span.absolute.top-3.right-3[class*="bg-emerald-500"],
+    span.absolute.top-3.right-3[class*="bg-rose-500"] {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-weight: 400;
+
+      font-size: 20px;
+      line-height: 0px;
+
+      text-align: center;
+
+    }
+
+    span.absolute.top-3.right-3[class*="bg-emerald-500"] {
+      background-color: #A9C6A6;
+      color: #4A3728;
+    }
+
+    span.absolute.top-3.right-3[class*="bg-rose-500"] {
+      background-color: #C77F8D;
+      color: #4A3728;
+    }
+
+    span.absolute.top-3.right-3[class*="bg-emerald-500"]>span,
+    span.absolute.top-3.right-3[class*="bg-rose-500"]>span {
+      width: 20px;
+      height: 20px;
+      flex: 0 0 20px;
+      border-radius: 9999px;
+    }
+
+    span.absolute.top-3.right-3[class*="bg-emerald-500"]>span {
+      background-color: #00B900;
+      box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.55), 0 1px 2px rgba(0, 70, 0, 0.45);
+    }
+
+    span.absolute.top-3.right-3[class*="bg-rose-500"]>span {
+      background-color: #E31319;
+      box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.55), 0 1px 2px rgba(100, 0, 0, 0.45);
+    }
+
+    .featured-dishes .p-5 h3,
+    .featured-dishes .p-5>p {
+      color: #324A38;
+    }
+
+    .full-menu .p-5 h3,
+    .full-menu .mt-auto span.font-semibold {
+      color: #4A3728;
+    }
+  </style>
+</head>
+
+<body class="bg-[#F5F1E8] text-[#2b2118]">
+
+  <!-- HEADER -->
+  <header class="bg-[#3E2A1E] text-white">
+    <div class="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-10 py-4">
+      <div class="flex items-center gap-4">
+        <div class="w-32 h-24 shrink-0 flex items-center justify-center">
+          <img src="./src/img/logo leprestige.png" alt="Logo Le Prestige"
+            class="w-[230px] h-[125px] max-w-none object-contain">
+        </div>
+        <div>
+          <h1 class="font-display text-2xl md:text-3xl tracking-wide">LE PRESTIGE</h1>
+          <p class="text-[#C29B38]"
+            style="font-family: 'Playfair Display', serif; font-weight: normal; font-style: italic; font-size: 24px; line-height: 100%;  text-align: center; ">
+            Café e Bistrô</p>
+        </div>
+      </div>
+      <button
+        class="w-[216px] h-[35px] bg-[#6B5543] text-[#C29B38] font-display text-lg font-semibold leading-none rounded-full">
+        ADMINISTRADOR
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO QUOTE -->
+  <section class="text-center py-10 px-6">
+    <p
+      style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 24px; font-weight: 400;  line-height: 30px; text-align: center; color: #3E2A1E;">
+      "Comida feita com carinho, sabor e ingredientes frescos."
+    </p>
+  </section>
+
+  <!-- SOBRE NÓS -->
+  <section class="max-w-6xl mx-auto px-6 pb-14">
+    <div
+      class="bg-white rounded-3xl border border-[#324A38] shadow-sm p-8 md:p-10 flex flex-col md:flex-row items-center gap-10">
+      <div class="flex-1">
+        <h2 class="mb-4"
+          style="font-family: 'Playfair Display', serif; font-weight: 700;  font-size: 32px; line-height: 100%;  text-align: left; ">
+          Sobre nós</h2>
+        <p class="text-[#5b5044]"
+          style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 400;  font-size: 16px; line-height: 30px; letter-spacing: 3.2px; ">
+          O Le Prestige Café e Bistrô foi criado em 2016 com o objetivo de oferecer comidas tradicionais brasileiras em
+          um ambiente agradável e acolhedor. Servimos pratos caseiros, cafés, lanches e sobremesas preparados com
+          cuidado e ingredientes selecionados.
+        </p>
+      </div>
+      <div class="flex-1 w-full">
+        <img src="./src/img/foto do restaurante.png" alt="Ambiente do restaurante"
+          class="rounded-2xl w-full h-64 object-cover">
+      </div>
+    </div>
+  </section>
+
+  <!-- PRATOS CHEFES DA CASA -->
+  <section class="featured-dishes max-w-7xl mx-auto px-6 pb-14">
+    <h2 class="font-display text-[32px] font-bold text-[#4A3728] mb-6 border-b-[3px] border-[#ECE7DE] pb-2">Pratos
+      Chefes da Casa</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <div class="bg-white rounded-2xl border border-[#324A38] overflow-hidden">
+        <img src="./src/img/bolinho de feijoada.png" class="w-full h-40 object-cover" alt="Bolinho de Feijoada">
+        <div class="p-5">
+          <h3 class="mb-1"
+            style="min-height: 60px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700;  font-size: 20px; line-height: 30px; letter-spacing: 4px; ">
+            Bolinho de Feijoada</h3>
+          <p class="mb-3"
+            style="min-height: 120px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 400;  font-size: 18px; line-height: 30px; letter-spacing: 3.6px; ">
+            Bolinhos crocantes acompanhados de molho de laranja.</p>
+          <p class="text-[#3E2A1E]"
+            style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700;  font-size: 20px; line-height: 30px; letter-spacing: 4px; ">
+            R$ 19,90</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-[#324A38] overflow-hidden">
+        <img src="./src/img/escondidinho.png" class="w-full h-40 object-cover" alt="Escondidinho">
+        <div class="p-5">
+          <h3 class="mb-1"
+            style="min-height: 60px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700;  font-size: 20px; line-height: 30px; letter-spacing: 4px; ">
+            Escondidinho</h3>
+          <p class="mb-3"
+            style="min-height: 120px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 400;  font-size: 18px; line-height: 30px; letter-spacing: 3.6px; ">
+            Carne-seca desfiada coberta com purê de mandioca.</p>
+          <p class="text-[#3E2A1E]"
+            style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700;  font-size: 20px; line-height: 30px; letter-spacing: 4px; ">
+            R$ 35,90</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-[#324A38] overflow-hidden">
+        <img src="./src/img/dadinho de tapioca.png" class="w-full h-40 object-cover" alt="Dadinho de Tapioca">
+        <div class="p-5">
+          <h3 class="mb-1"
+            style="min-height: 60px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700;  font-size: 20px; line-height: 30px; letter-spacing: 4px; ">
+            Dadinho de Tapioca</h3>
+          <p class="mb-3"
+            style="min-height: 120px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 400;  font-size: 18px; line-height: 30px; letter-spacing: 3.6px; ">
+            Cubos de tapioca com queijo coalho e geleia.</p>
+          <p class="text-[#3E2A1E]"
+            style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700;  font-size: 20px; line-height: 30px; letter-spacing: 4px; ">
+            R$ 18,90</p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl border border-[#324A38] overflow-hidden">
+        <img src="./src/img/romeu e julieta.png" class="w-full h-40 object-cover" alt="Romeu e Julieta">
+        <div class="p-5">
+          <h3 class="mb-1"
+            style="min-height: 60px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700;  font-size: 20px; line-height: 30px; letter-spacing: 4px; ">
+            Romeu e Julieta</h3>
+          <p class="mb-3"
+            style="min-height: 120px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 400;  font-size: 18px; line-height: 30px; letter-spacing: 3.6px; ">
+            Creme de queijo com goiabada e crocante.</p>
+          <p class="text-[#3E2A1E]"
+            style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700;  font-size: 20px; line-height: 30px; letter-spacing: 4px; ">
+            R$ 18,90</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CARDÁPIO COMPLETO -->
+  <section class="full-menu max-w-7xl mx-auto px-6 pb-20">
+    <h2 class="text-[#3E2A1E] mb-6 border-b-[3px] border-[#ECE7DE] pb-4"
+      style="font-family: 'Playfair Display', serif; font-weight: 700;  font-size: 32px; line-height: 30px;  ">
+      Cardápio Completo</h2>
+
+    <div class="flex flex-col md:flex-row gap-4 mb-6">
+      <div class="flex-1 flex items-center gap-3 bg-white border border-[#e7ded0] rounded-xl px-4 py-3">
+        <span class="text-[#a89c89]">🔍</span>
+        <input type="text" placeholder="Buscar prato ou bebida... (ex: Dadinho de Tapioca)"
+          class="flex-1 outline-none placeholder:text-[#a89c89] bg-transparent"
+          style="font-family: 'Playfair Display', serif; font-weight: 400;  font-size: 24px; line-height: 30px;  ">
+      </div>
+      <button class="bg-[#2F4A3C] text-white px-6 py-3 rounded-xl whitespace-nowrap"
+        style="font-family: 'Playfair Display', serif; font-weight: 300;  font-size: 14px; line-height: 30px;  text-align: center; ">
+        Ver Carrinho de Pedidos
+      </button>
+    </div>
+
+    <div class="flex flex-wrap gap-1 mb-8">
+      <button class="bg-[#324A38] text-white text-[20px] font-normal px-6 py-2 rounded-full"
+        style="font-family: 'Playfair Display', serif;">TODOS</button>
+      <button class="bg-[#D1D5D8] text-[#5b5044] text-[20px] font-normal px-6 py-2 rounded-full"
+        style="font-family: 'Playfair Display', serif;">ENTRADAS</button>
+      <button class="bg-[#D1D5D8] text-[#5b5044] text-[20px] font-normal px-6 py-2 rounded-full"
+        style="font-family: 'Playfair Display', serif;">PRATOS P...</button>
+      <button class="bg-[#D1D5D8] text-[#5b5044] text-[20px] font-normal px-6 py-2 rounded-full"
+        style="font-family: 'Playfair Display', serif;">LANCHES</button>
+      <button class="bg-[#D1D5D8] text-[#5b5044] text-[20px] font-normal px-6 py-2 rounded-full"
+        style="font-family: 'Playfair Display', serif;">BEBIDAS</button>
+      <button class="bg-[#D1D5D8] text-[#5b5044] text-[20px] font-normal px-6 py-2 rounded-full"
+        style="font-family: 'Playfair Display', serif;">CAFÉS</button>
+      <button class="bg-[#D1D5D8] text-[#5b5044] text-[20px] font-normal px-6 py-2 rounded-full"
+        style="font-family: 'Playfair Display', serif;">SOBREMESAS</button>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- Dadinho de Tapioca -->
+      <div class="bg-white rounded-2xl border border-[#324A38] overflow-hidden flex flex-col">
+        <div class="relative">
+          <img src="./src/img/dadinho de tapioca.png" class="w-full h-48 object-cover" alt="Dadinho de Tapioca">
+          <span class="absolute top-3 right-3 bg-emerald-500 text-white px-3 py-1 rounded-full flex items-center gap-1"
+            style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 400;  font-size: 20px; line-height: 0px;  text-align: center; ">
+            <span class="w-2 h-2 rounded-full bg-white/80"></span>Disponível
+          </span>
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <h3 class="mb-4"
+            style="font-family: 'Playfair Display', serif; font-weight: 700;  font-size: 24px; line-height: 30px;  text-align: left; ">
+            Dadinho de Tapioca</h3>
+          <div class="mt-auto flex items-center justify-between">
+            <span class="font-semibold">R$ 18,90</span>
+            <button class="bg-[#2F4A3C] text-white text-sm font-semibold px-3 py-1 rounded-lg">Ver Prato →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bolinho de Feijoada -->
+      <div class="bg-white rounded-2xl border border-[#324A38] overflow-hidden flex flex-col">
+        <div class="relative">
+          <img src="./src/img/bolinho de feijoada.png" class="w-full h-48 object-cover" alt="Bolinho de Feijoada">
+          <span class="absolute top-3 right-3 bg-rose-500 text-white px-3 py-1 rounded-full flex items-center gap-1"
+            style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 400;  font-size: 20px; line-height: 0px;  text-align: center; ">
+            <span class="w-2 h-2 rounded-full bg-white/80"></span>Esgotado
+          </span>
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <h3 class="mb-4"
+            style="font-family: 'Playfair Display', serif; font-weight: 700;  font-size: 24px; line-height: 30px;  text-align: left; ">
+            Bolinho de Feijoada</h3>
+          <div class="mt-auto flex items-center justify-between">
+            <span class="font-semibold">R$ 19,90</span>
+            <button class="bg-[#2F4A3C] text-white text-sm font-semibold px-3 py-1 rounded-lg">Ver Prato →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Parmegiana Brasileira -->
+      <div class="bg-white rounded-2xl border border-[#324A38] overflow-hidden flex flex-col">
+        <div class="relative">
+          <img src="./src/img/parmegiana brasileira.png" class="w-full h-48 object-cover" alt="Parmegiana Brasileira">
+          <span
+            class="absolute top-3 right-3 bg-emerald-500 text-white text-xs font-medium px-3 py-1 rounded-full flex items-center gap-1">
+            <span class="w-2 h-2 rounded-full bg-white/80"></span>Disponível
+          </span>
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <h3 class="mb-4"
+            style="font-family: 'Playfair Display', serif; font-weight: 700;  font-size: 24px; line-height: 30px;  text-align: left; ">
+            Parmegiana Brasileira</h3>
+          <div class="mt-auto flex items-center justify-between">
+            <span class="font-semibold">R$ 34,90</span>
+            <button class="bg-[#2F4A3C] text-white text-sm font-semibold px-3 py-1 rounded-lg">Ver Prato →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Picadinho da Casa -->
+      <div class="bg-white rounded-2xl border border-[#324A38] overflow-hidden flex flex-col">
+        <div class="relative">
+          <img src="./src/img/picadinho da casa.png" class="w-full h-48 object-cover" alt="Picadinho da Casa">
+          <span
+            class="absolute top-3 right-3 bg-rose-500 text-white text-xs font-medium px-3 py-1 rounded-full flex items-center gap-1">
+            <span class="w-2 h-2 rounded-full bg-white/80"></span>Esgotado
+          </span>
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <h3 class="mb-4"
+            style="font-family: 'Playfair Display', serif; font-weight: 700;  font-size: 24px; line-height: 30px;  text-align: left; ">
+            Picadinho da Casa</h3>
+          <div class="mt-auto flex items-center justify-between">
+            <span class="font-semibold">R$ 36,90</span>
+            <button class="bg-[#2F4A3C] text-white text-sm font-semibold px-3 py-1 rounded-lg">Ver Prato →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sanduíche Le Prestige -->
+      <div class="bg-white rounded-2xl border border-[#324A38] overflow-hidden flex flex-col">
+        <div class="relative">
+          <img src="./src/img/sanduiche le prestige.png" class="w-full h-48 object-cover" alt="Sanduíche Le Prestige">
+          <span
+            class="absolute top-3 right-3 bg-rose-500 text-white text-xs font-medium px-3 py-1 rounded-full flex items-center gap-1">
+            <span class="w-2 h-2 rounded-full bg-white/80"></span>Esgotado
+          </span>
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <h3 class="mb-4"
+            style="font-family: 'Playfair Display', serif; font-weight: 700;  font-size: 24px; line-height: 30px;  text-align: left; ">
+            Sanduíche Le Prestige</h3>
+          <div class="mt-auto flex items-center justify-between">
+            <span class="font-semibold">R$ 26,90</span>
+            <button class="bg-[#2F4A3C] text-white text-sm font-semibold px-3 py-1 rounded-lg">Ver Prato →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pão de Queijo Recheado -->
+      <div class="bg-white rounded-2xl border border-[#324A38] overflow-hidden flex flex-col">
+        <div class="relative">
+          <img src="./src/img/pao de queijo recheado.png" class="w-full h-48 object-cover" alt="Pão de Queijo Recheado">
+          <span
+            class="absolute top-3 right-3 bg-emerald-500 text-white text-xs font-medium px-3 py-1 rounded-full flex items-center gap-1">
+            <span class="w-2 h-2 rounded-full bg-white/80"></span>Disponível
+          </span>
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <h3 class="mb-4"
+            style="font-family: 'Playfair Display', serif; font-weight: 700;  font-size: 24px; line-height: 30px;  text-align: left; ">
+            Pão de Queijo Recheado</h3>
+          <div class="mt-auto flex items-center justify-between">
+            <span class="font-semibold">R$ 16,90</span>
+            <button class="bg-[#2F4A3C] text-white text-sm font-semibold px-3 py-1 rounded-lg">Ver Prato →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Suco Natural -->
+      <div class="bg-white rounded-2xl border border-[#324A38] overflow-hidden flex flex-col">
+        <div class="relative">
+          <img src="./src/img/suco natural.png" class="w-full h-48 object-cover" alt="Suco Natural">
+          <span
+            class="absolute top-3 right-3 bg-rose-500 text-white text-xs font-medium px-3 py-1 rounded-full flex items-center gap-1">
+            <span class="w-2 h-2 rounded-full bg-white/80"></span>Esgotado
+          </span>
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <h3 class="mb-4"
+            style="font-family: 'Playfair Display', serif; font-weight: 700;  font-size: 24px; line-height: 30px;  text-align: left; ">
+            Suco Natural</h3>
+          <div class="mt-auto flex items-center justify-between">
+            <span class="font-semibold">R$ 9,90</span>
+            <button class="bg-[#2F4A3C] text-white text-sm font-semibold px-3 py-1 rounded-lg">Ver Prato →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Refrigerante -->
+      <div class="bg-white rounded-2xl border border-[#324A38] overflow-hidden flex flex-col">
+        <div class="relative">
+          <img src="./src/img/refrigerante.png" class="w-full h-48 object-cover" alt="Refrigerante">
+          <span
+            class="absolute top-3 right-3 bg-emerald-500 text-white text-xs font-medium px-3 py-1 rounded-full flex items-center gap-1">
+            <span class="w-2 h-2 rounded-full bg-white/80"></span>Disponível
+          </span>
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <h3 class="mb-4"
+            style="font-family: 'Playfair Display', serif; font-weight: 700;  font-size: 24px; line-height: 30px;  text-align: left; ">
+            Refrigerante</h3>
+          <div class="mt-auto flex items-center justify-between">
+            <span class="font-semibold">R$ 7,00</span>
+            <button class="bg-[#2F4A3C] text-white text-sm font-semibold px-3 py-1 rounded-lg">Ver Prato →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Café Expresso -->
+      <div class="bg-white rounded-2xl border border-[#324A38] overflow-hidden flex flex-col">
+        <div class="relative">
+          <img src="./src/img/cafe expresso.png" class="w-full h-48 object-cover" alt="Café Expresso">
+          <span
+            class="absolute top-3 right-3 bg-emerald-500 text-white text-xs font-medium px-3 py-1 rounded-full flex items-center gap-1">
+            <span class="w-2 h-2 rounded-full bg-white/80"></span>Disponível
+          </span>
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <h3 class="mb-4"
+            style="font-family: 'Playfair Display', serif; font-weight: 700;  font-size: 24px; line-height: 30px;  text-align: left; ">
+            Café Expresso</h3>
+          <div class="mt-auto flex items-center justify-between">
+            <span class="font-semibold">R$ 6,00</span>
+            <button class="bg-[#2F4A3C] text-white text-sm font-semibold px-3 py-1 rounded-lg">Ver Prato →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Café Coado -->
+      <div class="bg-white rounded-2xl border border-[#324A38] overflow-hidden flex flex-col">
+        <div class="relative">
+          <img src="./src/img/café coado.png" class="w-full h-48 object-cover" alt="Café Coado">
+          <span
+            class="absolute top-3 right-3 bg-emerald-500 text-white text-xs font-medium px-3 py-1 rounded-full flex items-center gap-1">
+            <span class="w-2 h-2 rounded-full bg-white/80"></span>Disponível
+          </span>
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <h3 class="mb-4"
+            style="font-family: 'Playfair Display', serif; font-weight: 700;  font-size: 24px; line-height: 30px;  text-align: left; ">
+            Café Coado</h3>
+          <div class="mt-auto flex items-center justify-between">
+            <span class="font-semibold">R$ 7,00</span>
+            <button class="bg-[#2F4A3C] text-white text-sm font-semibold px-3 py-1 rounded-lg">Ver Prato →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pudim de Leite -->
+      <div class="bg-white rounded-2xl border border-[#324A38] overflow-hidden flex flex-col">
+        <div class="relative">
+          <img src="./src/img/pudim de leite.png" class="w-full h-48 object-cover" alt="Pudim de Leite">
+          <span
+            class="absolute top-3 right-3 bg-emerald-500 text-white text-xs font-medium px-3 py-1 rounded-full flex items-center gap-1">
+            <span class="w-2 h-2 rounded-full bg-white/80"></span>Disponível
+          </span>
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <h3 class="mb-4"
+            style="font-family: 'Playfair Display', serif; font-weight: 700;  font-size: 24px; line-height: 30px;  text-align: left; ">
+            Pudim de Leite</h3>
+          <div class="mt-auto flex items-center justify-between">
+            <span class="font-semibold">R$ 15,90</span>
+            <button class="bg-[#2F4A3C] text-white text-sm font-semibold px-3 py-1 rounded-lg">Ver Prato →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Romeu e Julieta Moderno -->
+      <div class="bg-white rounded-2xl border border-[#324A38] overflow-hidden flex flex-col">
+        <div class="relative">
+          <img src="./src/img/romeu e julieta.png" class="w-full h-48 object-cover" alt="Romeu e Julieta Moderno">
+          <span
+            class="absolute top-3 right-3 bg-emerald-500 text-white text-xs font-medium px-3 py-1 rounded-full flex items-center gap-1">
+            <span class="w-2 h-2 rounded-full bg-white/80"></span>Disponível
+          </span>
+        </div>
+        <div class="p-5 flex flex-col flex-1">
+          <h3 class="mb-4"
+            style="font-family: 'Playfair Display', serif; font-weight: 700;  font-size: 24px; line-height: 30px;  text-align: left; ">
+            Romeu e Julieta Moderno</h3>
+          <div class="mt-auto flex items-center justify-between">
+            <span class="font-semibold">R$ 18,90</span>
+            <button class="bg-[#2F4A3C] text-white text-sm font-semibold px-3 py-1 rounded-lg">Ver Prato →</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#3E2A1E] text-white pt-14 pb-6">
+    <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-10 pb-10">
+      <div>
+        <h3 class="font-display text-[32px] mb-1">LE PRESTIGE</h3>
+        <p class="text-[#C9A15A] italic text-[24px] mb-4">Café e Bistrô</p>
+        <p class=""
+          style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 400;  font-size: 16px; line-height: 30px; letter-spacing: 1.6px; ">
+          Comida feita com carinho, sabor e ingredientes frescos em um ambiente acolhedor.</p>
+      </div>
+      <div>
+        <h4 class="font-display text-[#C9A15A] text-[24px] mb-3">Horário</h4>
+        <p class="text-white mb-2"
+          style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 400;  font-size: 16px; line-height: 30px; letter-spacing: 1.6px; ">
+          <span style="font-weight: 700; ">Segunda a Sexta:</span> 11h às 22h
+        </p>
+        <p class="text-white mb-2"
+          style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 400;  font-size: 16px; line-height: 30px; letter-spacing: 1.6px; ">
+          <span style="font-weight: 700; ">Sábado:</span> 9h às 23h
+        </p>
+        <p class=""
+          style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 400;  font-size: 16px; line-height: 30px; letter-spacing: 1.6px; ">
+          <span style="font-weight: 700; ">Domingo:</span> 9h às 18h
+        </p>
+      </div>
+      <div>
+        <h4 class="font-display text-[#C9A15A] text-[24px] mb-3">Contato &amp; Local</h4>
+        <p class=""
+          style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 400;  font-size: 16px; line-height: 30px; letter-spacing: 1.6px; ">
+          Avenida BPS, nº 1303<br>
+          Bairro Pinheirinho, Itajubá – MG<br>
+          CEP: 37500-903<br>
+          Tel: (35) 3722-4587
+        </p>
+      </div>
+    </div>
+    <div
+      class="border-t-[3px] border-[#ECE7DE] max-w-7xl mx-auto px-6 pt-5 flex flex-col md:flex-row justify-between gap-2">
+      <p class="" style="font-family: 'Playfair Display', serif; font-size: 16px; line-height: 30px;">© 2026
+        Le Prestige Café e Bistrô. Todos os direitos reservados.</p>
+      <p class="" style="font-family: 'Playfair Display', serif; font-size: 16px; line-height: 30px;">
+        Desenvolvido por <span class="text-[#C29B38]">byron.solutions</span></p>
+    </div>
+  </footer>
+
+</body>
+
+</html>
