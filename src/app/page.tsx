@@ -3,20 +3,24 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { mockMenuItems, CATEGORIES, type MenuItem } from '@/data/mockData';
+import { CATEGORIES, type MenuItem } from '@/data/mockData';
+import { useCart } from '@/context/CartContext';
 
 export default function HomePage() {
+  const { menuItems } = useCart(); 
   const [categoriaAtiva, setCategoriaAtiva] = useState('TODOS');
   const [busca, setBusca] = useState('');
 
   const categorias = ['TODOS', ...CATEGORIES.map((cat) => cat.toUpperCase())];
 
-  const pratosPorCategoria = mockMenuItems.filter((prato) => {
+  // Filtra itens por categoria
+  const pratosPorCategoria = menuItems.filter((prato) => {
     if (categoriaAtiva === 'TODOS') return true;
     return prato.category.toUpperCase() === categoriaAtiva.toUpperCase();
   });
 
-  const resultadosDropdown = mockMenuItems.filter((item) => {
+  // Filtra itens para a busca suspensa
+  const resultadosDropdown = menuItems.filter((item) => {
     const textoBusca = busca.toLowerCase();
     return (
       item.name.toLowerCase().includes(textoBusca) || 
@@ -24,10 +28,13 @@ export default function HomePage() {
     );
   });
 
+  // Pega os 4 primeiros itens para a seção "Chefes da Casa"
+  const pratosChefes = menuItems.slice(0, 4);
+
   return (
     <div className="bg-[#F5F1E8] text-[#2b2118] min-h-screen font-sans flex flex-col justify-between">
       <div>
-        {/* HEADER*/}
+        {/* HEADER */}
         <header className="bg-[#3E2A1E] text-white">
           <div className="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-10 py-2">
             <div className="flex items-center gap-3">
@@ -113,63 +120,44 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* PRATOS CHEFES DA CASA */}
+        {/* PRATOS CHEFES DA CASA (DINÂMICO) */}
         <section className="featured-dishes max-w-5xl mx-auto px-4 pb-10">
           <h2 className="font-serif text-2xl md:text-3xl font-bold text-[#3E2A1E] mb-4 border-b border-[#ECE7DE] pb-2">
             Pratos Chefes da Casa
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            <div className="bg-white rounded-xl border border-[#324A38] overflow-hidden shadow-sm flex flex-col justify-between hover:shadow-md transition-all">
-              <img src="/img/bolinho de feijoada.png" className="w-full h-36 object-cover" alt="Bolinho de Feijoada" />
-              <div className="p-4 flex flex-col justify-between grow font-serif">
-                <div>
-                  <h3 className="font-bold text-[#2b2118] text-base mb-1 line-clamp-1">Bolinho de Feijoada</h3>
-                  <p className="text-[#5b5044] text-xs font-sans line-clamp-2 mb-3">
-                    Bolinhos crocantes acompanhados de molho de laranja.
+            {pratosChefes.map((prato) => (
+              <div 
+                key={prato.id} 
+                className={`bg-white rounded-xl border border-[#324A38] overflow-hidden shadow-sm flex flex-col justify-between hover:shadow-md transition-all ${
+                  !prato.available ? 'opacity-70' : ''
+                }`}
+              >
+                <div className="relative h-36 w-full bg-[#EAE8E1]">
+                  <img 
+                    src={prato.image || '/img/placeholder.png'} 
+                    className="w-full h-full object-cover" 
+                    alt={prato.name} 
+                  />
+                  {!prato.available && (
+                    <div className="absolute top-2 right-2 bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow">
+                      ESGOTADO
+                    </div>
+                  )}
+                </div>
+                <div className="p-4 flex flex-col justify-between grow font-serif">
+                  <div>
+                    <h3 className="font-bold text-[#2b2118] text-base mb-1 line-clamp-1">{prato.name}</h3>
+                    <p className="text-[#5b5044] text-xs font-sans line-clamp-2 mb-3">
+                      {prato.description}
+                    </p>
+                  </div>
+                  <p className="font-bold text-[#3E2A1E] text-sm">
+                    R$ {prato.price.toFixed(2).replace('.', ',')}
                   </p>
                 </div>
-                <p className="font-bold text-[#3E2A1E] text-sm">R$ 19,90</p>
               </div>
-            </div>
-
-            <div className="bg-white rounded-xl border border-[#324A38] overflow-hidden shadow-sm flex flex-col justify-between hover:shadow-md transition-all">
-              <img src="/img/escondidinho.png" className="w-full h-36 object-cover" alt="Escondidinho" />
-              <div className="p-4 flex flex-col justify-between grow font-serif">
-                <div>
-                  <h3 className="font-bold text-[#2b2118] text-base mb-1 line-clamp-1">Escondidinho</h3>
-                  <p className="text-[#5b5044] text-xs font-sans line-clamp-2 mb-3">
-                    Carne-seca desfiada coberta com purê de mandioca.
-                  </p>
-                </div>
-                <p className="font-bold text-[#3E2A1E] text-sm">R$ 35,90</p>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-xl border border-[#324A38] overflow-hidden shadow-sm flex flex-col justify-between hover:shadow-md transition-all">
-              <img src="/img/dadinho de tapioca.png" className="w-full h-36 object-cover" alt="Dadinho de Tapioca" />
-              <div className="p-4 flex flex-col justify-between grow font-serif">
-                <div>
-                  <h3 className="font-bold text-[#2b2118] text-base mb-1 line-clamp-1">Dadinho de Tapioca</h3>
-                  <p className="text-[#5b5044] text-xs font-sans line-clamp-2 mb-3">
-                    Cubos de tapioca com queijo coalho e geleia.
-                  </p>
-                </div>
-                <p className="font-bold text-[#3E2A1E] text-sm">R$ 18,90</p>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-xl border border-[#324A38] overflow-hidden shadow-sm flex flex-col justify-between hover:shadow-md transition-all">
-              <img src="/img/romeu e julieta.png" className="w-full h-36 object-cover" alt="Romeu e Julieta" />
-              <div className="p-4 flex flex-col justify-between grow font-serif">
-                <div>
-                  <h3 className="font-bold text-[#2b2118] text-base mb-1 line-clamp-1">Romeu e Julieta</h3>
-                  <p className="text-[#5b5044] text-xs font-sans line-clamp-2 mb-3">
-                    Creme de queijo com goiabada e crocante.
-                  </p>
-                </div>
-                <p className="font-bold text-[#3E2A1E] text-sm">R$ 18,90</p>
-              </div>
-            </div>
+            ))}
           </div>
         </section>
 
@@ -204,7 +192,14 @@ export default function HomePage() {
                       >
                         <div className="flex justify-between items-center">
                           <div className="text-left flex flex-col items-start">
-                            <div className="font-bold text-[#3E2A1E] text-sm">{item.name}</div>
+                            <div className="font-bold text-[#3E2A1E] text-sm flex items-center gap-2">
+                              {item.name}
+                              {!item.available && (
+                                <span className="text-[10px] bg-red-100 text-red-600 px-1.5 py-0.5 rounded font-sans">
+                                  Esgotado
+                                </span>
+                              )}
+                            </div>
                             <div className="text-xs text-[#C29B38] font-semibold mt-0.5">{item.category}</div>
                           </div>
                           <div className="text-sm font-semibold text-[#324A38] whitespace-nowrap">
@@ -252,14 +247,21 @@ export default function HomePage() {
               pratosPorCategoria.map((prato) => (
                 <div
                   key={prato.id}
-                  className="bg-white rounded-xl border border-[#324A38] overflow-hidden shadow-sm flex flex-col justify-between hover:shadow-md transition-all"
+                  className={`bg-white rounded-xl border border-[#324A38] overflow-hidden shadow-sm flex flex-col justify-between hover:shadow-md transition-all ${
+                    !prato.available ? 'opacity-65' : ''
+                  }`}
                 >
                   <div className="relative h-36 w-full bg-[#EAE8E1]">
                     <img
-                      src={prato.image || prato.image || '/img/placeholder.png'}
+                      src={prato.image || '/img/placeholder.png'}
                       className="w-full h-full object-cover"
                       alt={prato.name}
                     />
+                    {!prato.available && (
+                      <div className="absolute top-2 right-2 bg-red-600 text-white text-[10px] font-bold px-2 py-0.5 rounded shadow">
+                        ESGOTADO
+                      </div>
+                    )}
                   </div>
                   <div className="p-4 flex flex-col justify-between grow font-serif">
                     <h3 className="font-bold text-[#2b2118] text-base mb-3 line-clamp-1">
@@ -270,8 +272,11 @@ export default function HomePage() {
                         R$ {prato.price.toFixed(2).replace('.', ',')}
                       </span>
                       <Link href={`/prato/${prato.id}`}>
-                        <button className="bg-[#324A38] hover:bg-[#3D2C24] text-white text-xs font-sans font-medium px-3 py-1.5 rounded-lg transition-colors">
-                          Ver Prato &rarr;
+                        <button 
+                          disabled={!prato.available}
+                          className="bg-[#324A38] hover:bg-[#3D2C24] disabled:bg-gray-400 disabled:cursor-not-allowed text-white text-xs font-sans font-medium px-3 py-1.5 rounded-lg transition-colors"
+                        >
+                          {prato.available ? 'Ver Prato →' : 'Indisponível'}
                         </button>
                       </Link>
                     </div>
@@ -287,7 +292,7 @@ export default function HomePage() {
         </section>
       </div>
 
-      {/* FOOTER*/}
+      {/* FOOTER */}
       <footer className="bg-[#3E2A1E] text-white pt-14 pb-6">
         <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-10 pb-10">
           <div>

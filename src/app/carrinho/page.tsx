@@ -4,26 +4,53 @@ import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { ArrowLeft, Trash2, Minus, Plus } from 'lucide-react';
+import { ArrowLeft, Trash2, Minus, Plus, AlertCircle } from 'lucide-react';
 import { useCart } from '@/context/CartContext';
 
 export default function CarrinhoPage() {
   const router = useRouter();
-  const { carrinho, adicionarAoCarrinho, removerDoCarrinho, excluirDoCarrinho, limparCarrinho, adicionarPedido } = useCart();
+  const { 
+    carrinho, 
+    adicionarAoCarrinho, 
+    removerDoCarrinho, 
+    excluirDoCarrinho, 
+    limparCarrinho, 
+    adicionarPedido,
+    menuItems 
+  } = useCart();
 
   const [nome, setNome] = useState('');
   const [localizacao, setLocalizacao] = useState('');
   const [observacoes, setObservacoes] = useState('');
 
-  const totalItens = carrinho.reduce((acc, item) => acc + item.quantidade, 0);
-  const subtotal = carrinho.reduce((acc, item) => acc + item.price * item.quantidade, 0);
+  // Sincroniza os itens do carrinho com os dados mais recentes do menuItems
+  const carrinhoAtualizado = carrinho.map((item) => {
+    const itemMenu = menuItems.find((m) => String(m.id) === String(item.id));
+    return {
+      ...item,
+      price: itemMenu ? itemMenu.price : item.price,
+      name: itemMenu ? itemMenu.name : item.name,
+      available: itemMenu ? itemMenu.available : true,
+    };
+  });
+
+  // Verifica se existe algum item esgotado no carrinho
+  const possuiItemIndisponivel = carrinhoAtualizado.some((item) => !item.available);
+
+  const totalItens = carrinhoAtualizado.reduce((acc, item) => acc + item.quantidade, 0);
+  const subtotal = carrinhoAtualizado.reduce((acc, item) => acc + item.price * item.quantidade, 0);
   const taxaAtendimento = subtotal * 0.10;
   const valorTotal = subtotal + taxaAtendimento;
 
   const handleEnviarPedido = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (carrinho.length === 0) return;
+    if (carrinhoAtualizado.length === 0) return;
+
+    if (possuiItemIndisponivel) {
+      alert('Remova os itens esgotados do seu carrinho para prosseguir com o pedido.');
+      return;
+    }
 
     if (!nome.trim() || !localizacao.trim()) {
       alert('Por favor, preencha o seu nome completo e a mesa/localização.');
@@ -31,10 +58,9 @@ export default function CarrinhoPage() {
     }
 
     const novoPedido = {
-      id: `#${Math.floor(1000 + Math.random() * 9000)}`,
       cliente: nome,
       local: localizacao,
-      itens: carrinho.map((item) => ({
+      itens: carrinhoAtualizado.map((item) => ({
         nome: item.name,
         quantidade: item.quantidade,
       })),
@@ -44,7 +70,6 @@ export default function CarrinhoPage() {
     };
 
     adicionarPedido(novoPedido);
-
     alert('Pedido enviado para a cozinha com sucesso!');
     
     limparCarrinho();
@@ -57,8 +82,6 @@ export default function CarrinhoPage() {
       {/* HEADER */}
       <header className="bg-[#3E2A1E] text-white">
         <div className="max-w-7xl mx-auto flex items-center justify-between px-6 md:px-10 py-2">
-          
-          {/* Lado Esquerdo: Logo e Nome */}
           <div className="flex items-center gap-3">
             <div className="w-20 h-14 shrink-0 flex items-center justify-center">
               <img
@@ -118,7 +141,7 @@ export default function CarrinhoPage() {
           
           {/* Lista com os pratos */}
           <div className="lg:col-span-7 space-y-3 sm:space-y-4">
-            {carrinho.length === 0 ? (
+            {carrinhoAtualizado.length === 0 ? (
               <div className="bg-white border border-[#324A38] rounded-2xl p-6 sm:p-10 text-center">
                 <h3 className="font-sans text-base sm:text-xl font-bold text-[#324A38] mb-2">
                   Seu carrinho está vazio
@@ -134,10 +157,12 @@ export default function CarrinhoPage() {
                 </Link>
               </div>
             ) : (
-              carrinho.map((item) => (
+              carrinhoAtualizado.map((item) => (
                 <div 
                   key={item.id} 
-                  className="bg-white border border-[#324A38] rounded-2xl p-3 sm:p-4 shadow-sm flex items-center gap-2.5 sm:gap-4"
+                  className={`bg-white border ${
+                    !item.available ? 'border-red-500 bg-red-50/20' : 'border-[#324A38]'
+                  } rounded-2xl p-3 sm:p-4 shadow-sm flex items-center gap-2.5 sm:gap-4`}
                 >
                   <div className="relative w-16 h-16 sm:w-24 sm:h-20 rounded-xl overflow-hidden shrink-0 bg-stone-200">
                     <Image 
@@ -149,9 +174,16 @@ export default function CarrinhoPage() {
                   </div>
 
                   <div className="flex-grow min-w-0 pr-1 sm:pr-2">
-                    <h4 className="font-serif text-xs sm:text-base font-bold text-[#3E2A1E] truncate">
-                      {item.name}
-                    </h4>
+                    <div className="flex items-center gap-2">
+                      <h4 className="font-serif text-xs sm:text-base font-bold text-[#3E2A1E] truncate">
+                        {item.name}
+                      </h4>
+                      {!item.available && (
+                        <span className="text-[10px] bg-red-100 text-red-600 font-bold px-2 py-0.5 rounded-md whitespace-nowrap">
+                          Esgotado
+                        </span>
+                      )}
+                    </div>
                     <p className="font-sans text-[10px] sm:text-xs text-[#324A38]/70 line-clamp-2 my-0.5">
                       {item.description}
                     </p>
@@ -181,7 +213,8 @@ export default function CarrinhoPage() {
                       </span>
                       <button 
                         onClick={() => adicionarAoCarrinho(item)}
-                        className="w-3.5 h-3.5 flex items-center justify-center text-[#3E2A1E] hover:opacity-75"
+                        disabled={!item.available}
+                        className="w-3.5 h-3.5 flex items-center justify-center text-[#3E2A1E] hover:opacity-75 disabled:opacity-30 disabled:cursor-not-allowed"
                       >
                         <Plus className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
                       </button>
@@ -189,6 +222,13 @@ export default function CarrinhoPage() {
                   </div>
                 </div>
               ))
+            )}
+
+            {possuiItemIndisponivel && (
+              <div className="bg-red-100 border border-red-300 rounded-xl p-3 flex items-center gap-2 text-red-800 text-xs font-sans">
+                <AlertCircle className="w-4 h-4 shrink-0" />
+                <span>Existem itens esgotados no seu carrinho. Remova-os para concluir o pedido.</span>
+              </div>
             )}
 
             <div className="bg-[#ECE7DE] border border-[#324A38] rounded-2xl p-3 font-sans text-[10px] sm:text-xs text-[#324A38] text-center leading-relaxed">
@@ -266,10 +306,10 @@ export default function CarrinhoPage() {
 
                 <button 
                   type="submit"
-                  disabled={carrinho.length === 0}
+                  disabled={carrinhoAtualizado.length === 0 || possuiItemIndisponivel}
                   className="w-full bg-[#324A38] hover:bg-[#25382A] disabled:bg-stone-300 disabled:cursor-not-allowed text-[#F5F1E8] font-sans font-bold text-xs sm:text-sm py-3.5 rounded-full transition-all shadow-sm mt-4 active:scale-[0.99]"
                 >
-                  Confirmar e Enviar Pedido
+                  {possuiItemIndisponivel ? 'Remova os itens esgotados' : 'Confirmar e Enviar Pedido'}
                 </button>
               </form>
             </div>
