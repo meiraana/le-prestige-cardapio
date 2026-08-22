@@ -111,10 +111,10 @@ Abra o seu navegador e acesse [http://localhost:3000](http://localhost:3000).
 
 Projeto desenvolvido com excelência pelos trainees e membros da **byron.solutions**:
 
-| Desenvolvedor(a) | Função | GitHub |
+| Desenvolvedor(a) |GitHub |
 | --- | --- | --- |
 | **Ana Cristina Meira**  | [github](https://github.com/anacmeira) |
-| ** Heitor Moura** |  [github](https://github.com/HeitorSrm) |
+| **Heitor Moura** |  [github](https://github.com/HeitorSrm) |
 | **Jose Luiz Ferreira** | [github](https://github.com/Jose-Luiz-Ferreira) |
 | **Matheus Ferrari** | [github](https://github.com/matheusferrari-mar) |
 
