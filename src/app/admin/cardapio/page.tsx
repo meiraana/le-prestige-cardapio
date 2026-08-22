@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, Plus, Edit2, Trash2, X } from 'lucide-react';
 import { MenuItem, CATEGORIES, mockMenuItems } from '@/data/mockData'
@@ -9,6 +9,27 @@ import Image from 'next/image';
 export default function GestaoCardapioPage() {
     const [pratos, setPratos] = useState<MenuItem[]>(mockMenuItems);
     const [categoriaAtiva, setCategoriaAtiva] = useState<string>('TODOS');
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    useEffect(() => {
+        try {
+            const dadosSalvos = localStorage.getItem('le_prestige_cardapio');
+            if (dadosSalvos) {
+                setPratos(JSON.parse(dadosSalvos));
+            }
+        } catch (e) {
+            console.error('Erro ao ler cardápio do storage:', e);
+        } finally {
+            setIsLoaded(true);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (isLoaded) {
+            localStorage.setItem('le_prestige_cardapio', JSON.stringify(pratos));
+        }
+    }, [pratos, isLoaded]);
+
     const pratosFiltrados = categoriaAtiva === 'TODOS'
         ? pratos
         : pratos.filter((p) => p.category.toUpperCase() === categoriaAtiva.toUpperCase());
@@ -56,7 +77,14 @@ export default function GestaoCardapioPage() {
             return;
         }
 
-        const precoFormatado = parseFloat(preco.replace(',', '.')) || 0;
+        const precoLimpo = preco.trim().replace(',', '.').trim();
+        const formatoValido = /^(\d+(\.\d{1,2})?)$/.test(precoLimpo);
+        const precoFormatado = parseFloat(precoLimpo);
+
+        if (!formatoValido || isNaN(precoFormatado) || precoFormatado <= 0) {
+            alert('Informe um preço numérico válido e maior que zero (Ex: 34,90 ou 15).');
+            return;
+        }
 
         if (editingId !== null) {
             setPratos((prev) =>
@@ -305,8 +333,13 @@ export default function GestaoCardapioPage() {
                                     </label>
                                     <input
                                         type='text'
+                                        inputMode="decimal"
                                         value={preco}
-                                        onChange={(e) => setPreco(e.target.value)}
+                                        onChange={(e) => {
+
+                                            const valorLimpo = e.target.value.replace(/[^0-9,]/g, '');
+                                            setPreco(valorLimpo);
+                                        }}
                                         placeholder="Ex: 34,90"
                                         className="w-full bg-[#EAE8E1]/60 border border-verde rounded-lg px-3 py-2 text-sm text-cafe focus:outline-nome focus:border-verde"
                                     ></input>
