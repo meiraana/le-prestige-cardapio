@@ -11,6 +11,7 @@ export default function GestaoCardapioPage() {
     const [categoriaAtiva, setCategoriaAtiva] = useState<string>('TODOS');
     const [isLoaded, setIsLoaded] = useState(false);
 
+    // Carrega dados persistidos do navegador na montagem inicial
     useEffect(() => {
         try {
             const dadosSalvos = localStorage.getItem('le_prestige_cardapio');
@@ -24,6 +25,7 @@ export default function GestaoCardapioPage() {
         }
     }, []);
 
+    // Sincroniza qualquer alteração no array de pratos apenas após o carregamento inicial
     useEffect(() => {
         if (isLoaded) {
             localStorage.setItem('le_prestige_cardapio', JSON.stringify(pratos));
@@ -77,6 +79,7 @@ export default function GestaoCardapioPage() {
             return;
         }
 
+        // Normalização e validação estrita de formato monetário (ex: 34,90 ou 15)
         const precoLimpo = preco.trim().replace(',', '.').trim();
         const formatoValido = /^(\d+(\.\d{1,2})?)$/.test(precoLimpo);
         const precoFormatado = parseFloat(precoLimpo);
@@ -103,6 +106,7 @@ export default function GestaoCardapioPage() {
                 )
             );
         } else {
+            // Gera um ID incremental baseado no maior ID existente
             const novoPrato: MenuItem = {
                 id: pratos.length > 0 ? Math.max(...pratos.map((p) => p.id)) + 1 : 1,
                 name: nome,
@@ -164,7 +168,6 @@ export default function GestaoCardapioPage() {
                     </button>
                 </div>
 
-                {/* Espaço para os filtros e os cards */}
                 { /* FILTROS DE CATEGORIA */}
                 <div className="font-serif flex items-center gap-2 overflow-x-auto justify-between mb-6 pb-4 py-4">
                     <button 
@@ -214,7 +217,7 @@ export default function GestaoCardapioPage() {
                                         </div>
                                     )}
 
-                                    {/* Botão de Status Ágil */}
+                                    {/* Botão de Status Ágil de Disponibilidade */}
                                     <button
                                         type="button"
                                         onClick={() => handleToggleStatus(prato.id)}
@@ -271,7 +274,7 @@ export default function GestaoCardapioPage() {
 
             </main>
 
-            {/* POP-UP / MODAL DE CADASTRO OU EDIÇÃO */}
+            {/* Modal: Cadastro e Edição de Prato */}
             {isModalOpen && (
                 <div 
                     onClick={() => setIsModalOpen(false)}
