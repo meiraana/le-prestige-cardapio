@@ -113,10 +113,10 @@ Projeto desenvolvido com excelência pelos trainees e membros da **byron.solutio
 
 | Desenvolvedor(a) | Função | GitHub |
 | --- | --- | --- |
-| **Nome** | Desenvolvedor(a) Front-end | [github](https://www.google.com/search?q=https://github.com/seu-github) |
-| **Nome** | Desenvolvedor(a) Front-end | [github](https://github.com) |
-| **Nome** | Desenvolvedor(a) Front-end | [github](https://github.com) |
-| **Nome** | Desenvolvedor(a) Front-end | [github](https://github.com) |
+| **Ana Cristina Meira**  | [github](https://github.com/anacmeira) |
+| ** Heitor Moura** |  [github](https://github.com/HeitorSrm) |
+| **Jose Luiz Ferreira** | [github](https://github.com/Jose-Luiz-Ferreira) |
+| **Matheus Ferrari** | [github](https://github.com/matheusferrari-mar) |
 
 ---
 
